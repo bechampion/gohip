@@ -1,153 +1,113 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <hip-report>
-    <generate-time>05/18/2024 16:06:38</generate-time>
-    <hip-report-version>4</hip-report-version>
-    <categories>
-        <entry name="host-info">
-            <client-version></client-version>
-            <os></os>
-            <os-vendor>Linux</os-vendor>
-            <domain></domain>
-            <host-name>coco</host-name>
-            <host-id></host-id>
-            <network-interface>
-                <entry name="enp0s31f6">
-                    <description>enp0s31f6</description>
-                    <mac-address>6c:4b:90:5b:7b:b3</mac-address>
-                    <ip-address>
-                        <entry name="192.168.1.144"></entry>
-                    </ip-address>
-                    <ipv6-address>
-                        <entry name="fe80::d874:bc7c:9ca5:b800"></entry>
-                    </ipv6-address>
+        <generate-time>05/18/2024 19:16:14</generate-time>
+        <hip-report-version>4</hip-report-version>
+        <categories>
+                <entry name="host-info">
+                        <os-vendor>Linux</os-vendor>
+                        <host-name>coco</host-name>
+                        <network-interface>
+                                <entry name="enp0s31f6">
+                                        <description>enp0s31f6</description>
+                                        <mac-address>6c:4b:90:5b:7b:b3</mac-address>
+                                        <ip-address>
+                                                <entry name="192.168.1.144"></entry>
+                                        </ip-address>
+                                        <ipv6-address>
+                                                <entry name="fe80::d874:bc7c:9ca5:b800"></entry>
+                                        </ipv6-address>
+                                </entry>
+                                <entry name="wlp2s0">
+                                        <description>wlp2s0</description>
+                                        <mac-address>0c:54:15:0b:4e:2e</mac-address>
+                                </entry>
+                                <entry name="docker0">
+                                        <description>docker0</description>
+                                        <mac-address>02:42:f7:89:d6:48</mac-address>
+                                        <ip-address>
+                                                <entry name="172.17.0.1"></entry>
+                                        </ip-address>
+                                </entry>
+                        </network-interface>
                 </entry>
-                <entry name="wlp2s0">
-                    <description>wlp2s0</description>
-                    <mac-address>0c:54:15:0b:4e:2e</mac-address>
+                <entry name="anti-malware">
+                        <list>
+                                <entry>
+                                        <ProductInfo>
+                                                <Prod vendor="Cisco Systems, Inc." name="ClamAV" version="0.103.11" defver="27279" datemon="5" dateday="15" dateyear="2024" prodType="3" osType="1"></Prod>
+                                                <real-time-protection>no</real-time-protection>
+                                                <last-full-scan-time>n/a</last-full-scan-time>
+                                        </ProductInfo>
+                                </entry>
+                        </list>
                 </entry>
-                <entry name="docker0">
-                    <description>docker0</description>
-                    <mac-address>02:42:f7:89:d6:48</mac-address>
-                    <ip-address>
-                        <entry name="172.17.0.1"></entry>
-                    </ip-address>
+                <entry name="disk-backup">
+                        <list></list>
                 </entry>
-            </network-interface>
-        </entry>
-        <entry name="anti-malware">
-            <client-version></client-version>
-            <os></os>
-            <os-vendor></os-vendor>
-            <domain></domain>
-            <host-name></host-name>
-            <host-id></host-id>
-            <list>
-                <entry>
-                    <ProductInfo>
-                        <Prod vendor="Cisco Systems, Inc." name="ClamAV" version="0.103.11" defver="27279" datemon="5" dateday="15" dateyear="2024" prodType="3" osType="1"></Prod>
-                        <real-time-protection>no</real-time-protection>
-                        <last-full-scan-time>n/a</last-full-scan-time>
-                    </ProductInfo>
+                <entry name="disk-encryption">
+                        <list>
+                                <entry>
+                                        <ProductInfo>
+                                                <Prod vendor="GitLab Inc." name="cryptsetup" version="2.4.3"></Prod>
+                                                <drives>
+                                                        <entry>
+                                                                <drive-name>/</drive-name>
+                                                                <enc-state>unencrypted</enc-state>
+                                                        </entry>
+                                                        <entry>
+                                                                <drive-name>/home/jgarcia</drive-name>
+                                                                <enc-state>unencrypted</enc-state>
+                                                        </entry>
+                                                        <entry>
+                                                                <drive-name>All</drive-name>
+                                                                <enc-state>unencrypted</enc-state>
+                                                        </entry>
+                                                </drives>
+                                        </ProductInfo>
+                                </entry>
+                        </list>
                 </entry>
-            </list>
-        </entry>
-        <entry name="disk-backup">
-            <client-version></client-version>
-            <os></os>
-            <os-vendor></os-vendor>
-            <domain></domain>
-            <host-name></host-name>
-            <host-id></host-id>
-            <list></list>
-        </entry>
-        <entry name="disk-encryption">
-            <client-version></client-version>
-            <os></os>
-            <os-vendor></os-vendor>
-            <domain></domain>
-            <host-name></host-name>
-            <host-id></host-id>
-            <list>
-                <entry>
-                    <ProductInfo>
-                        <Prod vendor="GitLab Inc." name="cryptsetup" version="2.4.3"></Prod>
-                        <drives>
-                            <entry>
-                                <drive-name>/</drive-name>
-                                <enc-state>unencrypted</enc-state>
-                            </entry>
-                            <entry>
-                                <drive-name>/home/jgarcia</drive-name>
-                                <enc-state>unencrypted</enc-state>
-                            </entry>
-                            <entry>
-                                <drive-name>All</drive-name>
-                                <enc-state>unencrypted</enc-state>
-                            </entry>
-                        </drives>
-                    </ProductInfo>
+                <entry name="firewall">
+                        <list>
+                                <entry>
+                                        <ProductInfo>
+                                                <Prod vendor="Canonical Ltd." name="UFW" version="0.36.1"></Prod>
+                                                <is-enabled>no</is-enabled>
+                                        </ProductInfo>
+                                </entry>
+                                <entry>
+                                        <ProductInfo>
+                                                <Prod vendor="IPTables" name="IPTables" version="1.8.7"></Prod>
+                                                <is-enabled>no</is-enabled>
+                                        </ProductInfo>
+                                </entry>
+                                <entry>
+                                        <ProductInfo>
+                                                <Prod vendor="The Netfilter Project" name="nftables" version="1.0.2"></Prod>
+                                                <is-enabled>no</is-enabled>
+                                        </ProductInfo>
+                                </entry>
+                        </list>
                 </entry>
-            </list>
-        </entry>
-        <entry name="firewall">
-            <client-version></client-version>
-            <os></os>
-            <os-vendor></os-vendor>
-            <domain></domain>
-            <host-name></host-name>
-            <host-id></host-id>
-            <list>
-                <entry>
-                    <ProductInfo>
-                        <Prod vendor="Canonical Ltd." name="UFW" version="0.36.1"></Prod>
-                        <is-enabled>no</is-enabled>
-                    </ProductInfo>
+                <entry name="patch-management">
+                        <list>
+                                <entry>
+                                        <ProductInfo>
+                                                <Prod vendor="Canonical Ltd." name="Snap" version="22.04.1"></Prod>
+                                                <is-enabled>n/a</is-enabled>
+                                        </ProductInfo>
+                                </entry>
+                                <entry>
+                                        <ProductInfo>
+                                                <Prod vendor="GNU" name="Advanced Packaging Tool" version="2.4.11"></Prod>
+                                                <is-enabled>yes</is-enabled>
+                                        </ProductInfo>
+                                </entry>
+                        </list>
+                        <missing-patches></missing-patches>
                 </entry>
-                <entry>
-                    <ProductInfo>
-                        <Prod vendor="IPTables" name="IPTables" version="1.8.7"></Prod>
-                        <is-enabled>no</is-enabled>
-                    </ProductInfo>
+                <entry name="data-loss-prevention">
+                        <list></list>
                 </entry>
-                <entry>
-                    <ProductInfo>
-                        <Prod vendor="The Netfilter Project" name="nftables" version="1.0.2"></Prod>
-                        <is-enabled>no</is-enabled>
-                    </ProductInfo>
-                </entry>
-            </list>
-        </entry>
-        <entry name="patch-management">
-            <client-version></client-version>
-            <os></os>
-            <os-vendor></os-vendor>
-            <domain></domain>
-            <host-name></host-name>
-            <host-id></host-id>
-            <list>
-                <entry>
-                    <ProductInfo>
-                        <Prod vendor="Canonical Ltd." name="Snap" version="22.04.1"></Prod>
-                        <is-enabled>n/a</is-enabled>
-                    </ProductInfo>
-                </entry>
-                <entry>
-                    <ProductInfo>
-                        <Prod vendor="GNU" name="Advanced Packaging Tool" version="2.4.11"></Prod>
-                        <is-enabled>yes</is-enabled>
-                    </ProductInfo>
-                </entry>
-            </list>
-            <missing-patches></missing-patches>
-        </entry>
-        <entry name="data-loss-prevention">
-            <client-version></client-version>
-            <os></os>
-            <os-vendor></os-vendor>
-            <domain></domain>
-            <host-name></host-name>
-            <host-id></host-id>
-            <list></list>
-        </entry>
-    </categories>
+        </categories>
 </hip-report>
