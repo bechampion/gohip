@@ -8,8 +8,28 @@ import (
 	"osdata"
 	"time"
 	"flag"
+	"strings"
+	"log"
 )
 
+func logCommandAndArgs() {
+    // Get the command and arguments
+    command := os.Args[0]
+    args := strings.Join(os.Args[1:], " ")
+
+    // Create or open the log file
+    file, err := os.OpenFile("command.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+    if err != nil {
+        log.Fatalf("Failed to open log file: %v", err)
+    }
+    defer file.Close()
+
+    // Create a logger
+    logger := log.New(file, "", log.LstdFlags)
+
+    // Log the command and arguments
+    logger.Printf("Command: %s Arguments: %s\n", command, args)
+}
 type HipReport struct {
 	XMLName      xml.Name   `xml:"hip-report"`
 	Name         string     `xml:"name,attr"`
@@ -93,6 +113,7 @@ type MissingPatchEntry struct {
 }
 
 func main() {
+	logCommandAndArgs()
 	cookie := flag.String("cookie", "", "")
 	//--client-ip seems to be fed from openconect but i don't think it's used
 	 _ = flag.String("client-ip", "", "")
