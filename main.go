@@ -115,6 +115,7 @@ type MissingPatchEntry struct {
 func main() {
 	logCommandAndArgs()
 	cookie := flag.String("cookie", "", "")
+	 _ = flag.String("client-os", "", "")
 	//--client-ip seems to be fed from openconect but i don't think it's used
 	 _ = flag.String("client-ip", "", "")
 	md5 := flag.String("md5", "", "")
