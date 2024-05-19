@@ -308,7 +308,7 @@ func main() {
 	xmlHeader := []byte(xml.Header)
 	xmlData = append(xmlHeader, xmlData...)
 
-	err = os.WriteFile("/dev/stdout", xmlData, 0644)
+	fmt.Println(string(xmlData))
 	os.Exit(0)
 	if err != nil {
 		fmt.Printf("error: %v\n", err)
