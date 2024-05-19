@@ -103,8 +103,6 @@ func main() {
 		panic(err)
 	}
 	user := values.Get("user")
-	println("dada")
-	println(user)
 	domain := values.Get("domain")
 	// Computer doesn't seem to be used , i leave it here for future reference
 	 _ = values.Get("computer")
