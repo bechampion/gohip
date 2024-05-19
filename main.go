@@ -146,6 +146,7 @@ func main() {
 		GenerateTime: time.Now().Format("01/02/2006 15:04:05"),
 		Version:      4,
 		User: user,
+		HostId: hostname,
 		Md5: *md5,
 		Domain: domain,
 		Categories: Categories{
