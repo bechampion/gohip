@@ -3,16 +3,26 @@ package main
 import (
 	"encoding/xml"
 	"fmt"
-	"time"
+	"net/url"
 	"os"
 	"osdata"
+	"time"
+	"flag"
 )
 
 type HipReport struct {
-	XMLName          xml.Name  `xml:"hip-report"`
-	GenerateTime     string    `xml:"generate-time"`
-	Version          int       `xml:"hip-report-version"`
-	Categories       Categories `xml:"categories"`
+	XMLName      xml.Name   `xml:"hip-report"`
+	Name         string     `xml:"name,attr"`
+	Md5          string     `xml:"md5-sum"`
+	User         string     `xml:"user-name"`
+	Domain       string     `xml:"domain"`
+	HostName     string     `xml:"host-name"`
+	HostId       string     `xml:"host-id"`
+	Ip           string     `xml:"ip-address"`
+	Ip6          string     `xml:"ipv6-address"`
+	GenerateTime string     `xml:"generate-time"`
+	Version      int        `xml:"hip-report-version"`
+	Categories   Categories `xml:"categories"`
 }
 
 type Categories struct {
@@ -36,9 +46,6 @@ type NetworkInterfaces struct {
 	Entries []osdata.NetworkEntry `xml:"entry"`
 }
 
-
-
-
 type List struct {
 	Entries []ListEntry `xml:"entry"`
 }
@@ -48,24 +55,24 @@ type ListEntry struct {
 }
 
 type ProductInfo struct {
-	Prod               Prod       `xml:"Prod"`
-	RealTimeProtection string     `xml:"real-time-protection,omitempty"`
-	LastFullScanTime   string     `xml:"last-full-scan-time,omitempty"`
-	Drives             *Drives    `xml:"drives,omitempty"`
-	IsEnabled          string     `xml:"is-enabled,omitempty"`
+	Prod               Prod    `xml:"Prod"`
+	RealTimeProtection string  `xml:"real-time-protection,omitempty"`
+	LastFullScanTime   string  `xml:"last-full-scan-time,omitempty"`
+	Drives             *Drives `xml:"drives,omitempty"`
+	IsEnabled          string  `xml:"is-enabled,omitempty"`
 }
 
 type Prod struct {
-	Vendor  string `xml:"vendor,attr"`
-	Name    string `xml:"name,attr"`
-	Version string `xml:"version,attr"`
-	DefVer  string `xml:"defver,attr,omitempty"`
-	EngVer  string `xml:"engver,attr,omitempty"`
-	DateMon string `xml:"datemon,attr,omitempty"`
-	DateDay string `xml:"dateday,attr,omitempty"`
+	Vendor   string `xml:"vendor,attr"`
+	Name     string `xml:"name,attr"`
+	Version  string `xml:"version,attr"`
+	DefVer   string `xml:"defver,attr,omitempty"`
+	EngVer   string `xml:"engver,attr,omitempty"`
+	DateMon  string `xml:"datemon,attr,omitempty"`
+	DateDay  string `xml:"dateday,attr,omitempty"`
 	DateYear string `xml:"dateyear,attr,omitempty"`
 	ProdType string `xml:"prodType,attr,omitempty"`
-	OSType  string `xml:"osType,attr,omitempty"`
+	OSType   string `xml:"osType,attr,omitempty"`
 }
 
 type Drives struct {
@@ -86,46 +93,66 @@ type MissingPatchEntry struct {
 }
 
 func main() {
-	hostname,err := osdata.GetHostname()
+	cookie := flag.String("cookie", "", "")
+	//--client-ip seems to be fed from openconect but i don't think it's used
+	 _ = flag.String("client-ip", "", "")
+	md5 := flag.String("md5", "", "")
+    flag.Parse()
+	values, err := url.ParseQuery(*cookie)
 	if err != nil {
 		panic(err)
 	}
-	osname ,err := osdata.GetOS()
+	user := values.Get("user")
+	println("dada")
+	println(user)
+	domain := values.Get("domain")
+	// Computer doesn't seem to be used , i leave it here for future reference
+	 _ = values.Get("computer")
+
+	hostname, err := osdata.GetHostname()
 	if err != nil {
 		panic(err)
 	}
-	interfaces,err := osdata.GetInterfaces()
+	osname, err := osdata.GetOS()
+	if err != nil {
+		panic(err)
+	}
+	interfaces, err := osdata.GetInterfaces()
 	if err != nil {
 		panic(err)
 	}
 	hipReport := HipReport{
+		Name:         "hip-report",
 		GenerateTime: time.Now().Format("01/02/2006 15:04:05"),
 		Version:      4,
+		User: user,
+		Md5: *md5,
+		Domain: domain,
 		Categories: Categories{
 			Entries: []CategoryEntry{
 				{
-					Name:          "host-info",
-					OSVendor:      osname,
-					HostName:      hostname,
+					Name:     "host-info",
+					OSVendor: osname,
+					HostName: hostname,
 					NetworkInterfaces: &NetworkInterfaces{
 						Entries: interfaces,
 					}},
-					{
+				{
 					Name: "anti-malware",
 					List: &List{
 						Entries: []ListEntry{
 							{
 								ProductInfo: ProductInfo{
 									Prod: Prod{
-										Vendor:  "Cisco Systems, Inc.",
-										Name:    "ClamAV",
-										Version: "0.103.11",
-										DefVer:  "27279",
-										DateMon: "5",
-										DateDay: "15",
+										Vendor:   "Cisco Systems, Inc.",
+										Name:     "ClamAV",
+										Version:  "0.103.11",
+										DefVer:   "27279",
+										DateMon:  "5",
+										DateDay:  "15",
 										DateYear: "2024",
 										ProdType: "3",
-										OSType: "1",
+										OSType:   "1",
 									},
 									RealTimeProtection: "no",
 									LastFullScanTime:   "n/a",
@@ -259,11 +286,10 @@ func main() {
 	xmlData = append(xmlHeader, xmlData...)
 
 	err = os.WriteFile("/dev/stdout", xmlData, 0644)
+	os.Exit(0)
 	if err != nil {
 		fmt.Printf("error: %v\n", err)
 		return
 	}
 
 }
-
-
