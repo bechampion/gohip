@@ -117,7 +117,7 @@ func main() {
 	cookie := flag.String("cookie", "", "")
 	 _ = flag.String("client-os", "", "")
 	//--client-ip seems to be fed from openconect but i don't think it's used
-	 _ = flag.String("client-ip", "", "")
+	clientip  := flag.String("client-ip", "", "")
 	md5 := flag.String("md5", "", "")
     flag.Parse()
 	values, err := url.ParseQuery(*cookie)
@@ -149,6 +149,7 @@ func main() {
 		HostName: hostname,
 		HostId: hostname,
 		Md5: *md5,
+		Ip: *clientip,
 		Domain: domain,
 		Categories: Categories{
 			Entries: []CategoryEntry{
