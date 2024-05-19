@@ -2,9 +2,12 @@ module hip
 
 go 1.18
 
+replace osdata => ./osdata
+
 require (
 	github.com/godbus/dbus/v5 v5.1.0
 	github.com/shirou/gopsutil/v3 v3.24.4
+	osdata v0.0.0-00010101000000-000000000000
 )
 
 require (

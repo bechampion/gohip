@@ -3,8 +3,9 @@ package main
 import (
 	"encoding/xml"
 	"fmt"
-	"os"
 	"time"
+	"os"
+	"osdata"
 )
 
 type HipReport struct {
@@ -32,24 +33,11 @@ type CategoryEntry struct {
 }
 
 type NetworkInterfaces struct {
-	Entries []NetworkEntry `xml:"entry"`
+	Entries []osdata.NetworkEntry `xml:"entry"`
 }
 
-type NetworkEntry struct {
-	Name         string     `xml:"name,attr"`
-	Description  string     `xml:"description"`
-	MacAddress   string     `xml:"mac-address"`
-	IPAddress    *IPAddresses `xml:"ip-address,omitempty"`
-	IPv6Address  *IPAddresses `xml:"ipv6-address,omitempty"`
-}
 
-type IPAddresses struct {
-	Entries []IPEntry `xml:"entry"`
-}
 
-type IPEntry struct {
-	Name string `xml:"name,attr"`
-}
 
 type List struct {
 	Entries []ListEntry `xml:"entry"`
@@ -98,6 +86,18 @@ type MissingPatchEntry struct {
 }
 
 func main() {
+	hostname,err := osdata.GetHostname()
+	if err != nil {
+		panic(err)
+	}
+	osname ,err := osdata.GetOS()
+	if err != nil {
+		panic(err)
+	}
+	interfaces,err := osdata.GetInterfaces()
+	if err != nil {
+		panic(err)
+	}
 	hipReport := HipReport{
 		GenerateTime: time.Now().Format("01/02/2006 15:04:05"),
 		Version:      4,
@@ -105,44 +105,12 @@ func main() {
 			Entries: []CategoryEntry{
 				{
 					Name:          "host-info",
-					OSVendor:      "Linux",
-					HostName:      "coco",
+					OSVendor:      osname,
+					HostName:      hostname,
 					NetworkInterfaces: &NetworkInterfaces{
-						Entries: []NetworkEntry{
-							{
-								Name:        "enp0s31f6",
-								Description: "enp0s31f6",
-								MacAddress:  "6c:4b:90:5b:7b:b3",
-								IPAddress: &IPAddresses{
-									Entries: []IPEntry{
-										{Name: "192.168.1.144"},
-									},
-								},
-								IPv6Address: &IPAddresses{
-									Entries: []IPEntry{
-										{Name: "fe80::d874:bc7c:9ca5:b800"},
-									},
-								},
-							},
-							{
-								Name:        "wlp2s0",
-								Description: "wlp2s0",
-								MacAddress:  "0c:54:15:0b:4e:2e",
-							},
-							{
-								Name:        "docker0",
-								Description: "docker0",
-								MacAddress:  "02:42:f7:89:d6:48",
-								IPAddress: &IPAddresses{
-									Entries: []IPEntry{
-										{Name: "172.17.0.1"},
-									},
-								},
-							},
-						},
-					},
-				},
-				{
+						Entries: interfaces,
+					}},
+					{
 					Name: "anti-malware",
 					List: &List{
 						Entries: []ListEntry{
@@ -297,4 +265,5 @@ func main() {
 	}
 
 }
+
 
