@@ -4,24 +4,12 @@ import (
     "fmt"
     "os"
     "strings"
+	ctypes "types"
 
     "github.com/shirou/gopsutil/v3/host"
     "github.com/shirou/gopsutil/v3/net"
 )
 
-type IPEntry struct {
-	Name string `xml:"name,attr"`
-}
-type IPAddresses struct {
-	Entries []IPEntry `xml:"entry"`
-}
-type NetworkEntry struct {
-	Name         string     `xml:"name,attr"`
-	Description  string     `xml:"description"`
-	MacAddress   string     `xml:"mac-address"`
-	IPAddress    IPAddresses `xml:"ip-address,omitempty"`
-	IPv6Address  IPAddresses `xml:"ipv6-address,omitempty"`
-}
 func GetHostname() (string, error) {
     hostname, err := os.Hostname()
     if err != nil {
@@ -45,17 +33,17 @@ func GetOSVersion() (string, error) {
     return fmt.Sprintf("%s %s", info.Platform, info.PlatformVersion), nil
 }
 
-func GetInterfaces() ([]NetworkEntry, error) {
-    ifaces := []NetworkEntry{}
+func GetInterfaces() ([]ctypes.NetworkEntry, error) {
+    ifaces := []ctypes.NetworkEntry{}
     interfaces, err := net.Interfaces()
     if err != nil {
         return nil, err
     }
 
-    var i NetworkEntry
-    var ips []IPEntry
-    var ip IPEntry
-    var ipss IPAddresses
+    var i ctypes.NetworkEntry
+    var ips []ctypes.IPEntry
+    var ip ctypes.IPEntry
+    var ipss ctypes.IPAddresses
     for _, iface := range interfaces {
 	i.Name = iface.Name
         for _, addr := range iface.Addrs {

@@ -2,14 +2,16 @@ package main
 
 import (
 	"encoding/xml"
+	"flag"
 	"fmt"
+	"log"
 	"net/url"
 	"os"
 	"osdata"
-	"time"
-	"flag"
 	"strings"
-	"log"
+	"systemd"
+	"time"
+	ctypes "types"
 )
 
 func logCommandAndArgs() {
@@ -30,90 +32,10 @@ func logCommandAndArgs() {
     // Log the command and arguments
     logger.Printf("Command: %s Arguments: %s\n", command, args)
 }
-type HipReport struct {
-	XMLName      xml.Name   `xml:"hip-report"`
-	Name         string     `xml:"name,attr"`
-	Md5          string     `xml:"md5-sum"`
-	User         string     `xml:"user-name"`
-	Domain       string     `xml:"domain"`
-	HostName     string     `xml:"host-name"`
-	HostId       string     `xml:"host-id"`
-	Ip           string     `xml:"ip-address"`
-	Ip6          string     `xml:"ipv6-address"`
-	GenerateTime string     `xml:"generate-time"`
-	Version      int        `xml:"hip-report-version"`
-	Categories   Categories `xml:"categories"`
-}
-
-type Categories struct {
-	Entries []CategoryEntry `xml:"entry"`
-}
-
-type CategoryEntry struct {
-	Name              string             `xml:"name,attr"`
-	ClientVersion     string             `xml:"client-version,omitempty"`
-	OS                string             `xml:"os,omitempty"`
-	OSVendor          string             `xml:"os-vendor,omitempty"`
-	Domain            string             `xml:"domain,omitempty"`
-	HostName          string             `xml:"host-name,omitempty"`
-	HostID            string             `xml:"host-id,omitempty"`
-	NetworkInterfaces *NetworkInterfaces `xml:"network-interface,omitempty"`
-	List              *List              `xml:"list,omitempty"`
-	MissingPatches    *MissingPatches    `xml:"missing-patches,omitempty"`
-}
-
-type NetworkInterfaces struct {
-	Entries []osdata.NetworkEntry `xml:"entry"`
-}
-
-type List struct {
-	Entries []ListEntry `xml:"entry"`
-}
-
-type ListEntry struct {
-	ProductInfo ProductInfo `xml:"ProductInfo"`
-}
-
-type ProductInfo struct {
-	Prod               Prod    `xml:"Prod"`
-	RealTimeProtection string  `xml:"real-time-protection,omitempty"`
-	LastFullScanTime   string  `xml:"last-full-scan-time,omitempty"`
-	Drives             *Drives `xml:"drives,omitempty"`
-	IsEnabled          string  `xml:"is-enabled,omitempty"`
-}
-
-type Prod struct {
-	Vendor   string `xml:"vendor,attr"`
-	Name     string `xml:"name,attr"`
-	Version  string `xml:"version,attr"`
-	DefVer   string `xml:"defver,attr,omitempty"`
-	EngVer   string `xml:"engver,attr,omitempty"`
-	DateMon  string `xml:"datemon,attr,omitempty"`
-	DateDay  string `xml:"dateday,attr,omitempty"`
-	DateYear string `xml:"dateyear,attr,omitempty"`
-	ProdType string `xml:"prodType,attr,omitempty"`
-	OSType   string `xml:"osType,attr,omitempty"`
-}
-
-type Drives struct {
-	Entries []DriveEntry `xml:"entry"`
-}
-
-type DriveEntry struct {
-	DriveName string `xml:"drive-name"`
-	EncState  string `xml:"enc-state"`
-}
-
-type MissingPatches struct {
-	Entries []MissingPatchEntry `xml:"entry,omitempty"`
-}
-
-type MissingPatchEntry struct {
-	// Add fields if necessary
-}
 
 func main() {
 	logCommandAndArgs()
+	systemd.FindAVUnit()
 	cookie := flag.String("cookie", "", "")
 	 _ = flag.String("client-os", "", "")
 	//--client-ip seems to be fed from openconect but i don't think it's used
@@ -141,7 +63,7 @@ func main() {
 	if err != nil {
 		panic(err)
 	}
-	hipReport := HipReport{
+	hipReport := ctypes.HipReport{
 		Name:         "hip-report",
 		GenerateTime: time.Now().Format("01/02/2006 15:04:05"),
 		Version:      4,
@@ -151,22 +73,22 @@ func main() {
 		Md5: *md5,
 		Ip: *clientip,
 		Domain: domain,
-		Categories: Categories{
-			Entries: []CategoryEntry{
+		Categories: ctypes.Categories{
+			Entries: []ctypes.CategoryEntry{
 				{
 					Name:     "host-info",
 					OSVendor: osname,
 					HostName: hostname,
-					NetworkInterfaces: &NetworkInterfaces{
+					NetworkInterfaces: &ctypes.NetworkInterfaces{
 						Entries: interfaces,
 					}},
 				{
 					Name: "anti-malware",
-					List: &List{
-						Entries: []ListEntry{
+					List: &ctypes.List{
+						Entries: []ctypes.ListEntry{
 							{
-								ProductInfo: ProductInfo{
-									Prod: Prod{
+								ProductInfo: ctypes.ProductInfo{
+									Prod: ctypes.Prod{
 										Vendor:   "Cisco Systems, Inc.",
 										Name:     "ClamAV",
 										Version:  "0.103.11",
@@ -186,23 +108,23 @@ func main() {
 				},
 				{
 					Name: "disk-backup",
-					List: &List{
-						Entries: []ListEntry{},
+					List: &ctypes.List{
+						Entries: []ctypes.ListEntry{},
 					},
 				},
 				{
 					Name: "disk-encryption",
-					List: &List{
-						Entries: []ListEntry{
+					List: &ctypes.List{
+						Entries: []ctypes.ListEntry{
 							{
-								ProductInfo: ProductInfo{
-									Prod: Prod{
+								ProductInfo: ctypes.ProductInfo{
+									Prod: ctypes.Prod{
 										Vendor:  "GitLab Inc.",
 										Name:    "cryptsetup",
 										Version: "2.4.3",
 									},
-									Drives: &Drives{
-										Entries: []DriveEntry{
+									Drives: &ctypes.Drives{
+										Entries: []ctypes.DriveEntry{
 											{
 												DriveName: "/",
 												EncState:  "unencrypted",
@@ -224,11 +146,11 @@ func main() {
 				},
 				{
 					Name: "firewall",
-					List: &List{
-						Entries: []ListEntry{
+					List: &ctypes.List{
+						Entries: []ctypes.ListEntry{
 							{
-								ProductInfo: ProductInfo{
-									Prod: Prod{
+								ProductInfo: ctypes.ProductInfo{
+									Prod: ctypes.Prod{
 										Vendor:  "Canonical Ltd.",
 										Name:    "UFW",
 										Version: "0.36.1",
@@ -237,8 +159,8 @@ func main() {
 								},
 							},
 							{
-								ProductInfo: ProductInfo{
-									Prod: Prod{
+								ProductInfo: ctypes.ProductInfo{
+									Prod: ctypes.Prod{
 										Vendor:  "IPTables",
 										Name:    "IPTables",
 										Version: "1.8.7",
@@ -247,8 +169,8 @@ func main() {
 								},
 							},
 							{
-								ProductInfo: ProductInfo{
-									Prod: Prod{
+								ProductInfo: ctypes.ProductInfo{
+									Prod: ctypes.Prod{
 										Vendor:  "The Netfilter Project",
 										Name:    "nftables",
 										Version: "1.0.2",
@@ -261,11 +183,11 @@ func main() {
 				},
 				{
 					Name: "patch-management",
-					List: &List{
-						Entries: []ListEntry{
+					List: &ctypes.List{
+						Entries: []ctypes.ListEntry{
 							{
-								ProductInfo: ProductInfo{
-									Prod: Prod{
+								ProductInfo: ctypes.ProductInfo{
+									Prod: ctypes.Prod{
 										Vendor:  "Canonical Ltd.",
 										Name:    "Snap",
 										Version: "22.04.1",
@@ -274,8 +196,8 @@ func main() {
 								},
 							},
 							{
-								ProductInfo: ProductInfo{
-									Prod: Prod{
+								ProductInfo: ctypes.ProductInfo{
+									Prod: ctypes.Prod{
 										Vendor:  "GNU",
 										Name:    "Advanced Packaging Tool",
 										Version: "2.4.11",
@@ -285,14 +207,14 @@ func main() {
 							},
 						},
 					},
-					MissingPatches: &MissingPatches{
-						Entries: []MissingPatchEntry{},
+					MissingPatches: &ctypes.MissingPatches{
+						Entries: []ctypes.MissingPatchEntry{},
 					},
 				},
 				{
 					Name: "data-loss-prevention",
-					List: &List{
-						Entries: []ListEntry{},
+					List: &ctypes.List{
+						Entries: []ctypes.ListEntry{},
 					},
 				},
 			},
