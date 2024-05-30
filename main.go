@@ -89,17 +89,6 @@ func main() {
 							{
 								ProductInfo: ctypes.ProductInfo{
 									Prod: systemd.FindAVUnit(),
-									// Prod: ctypes.Prod{
-									// 	Vendor:   "Cisco Systems, Inc.",
-									// 	Name:     "ClamAV",
-									// 	Version:  "0.103.11",
-									// 	DefVer:   "27279",
-									// 	DateMon:  "5",
-									// 	DateDay:  "15",
-									// 	DateYear: "2024",
-									// 	ProdType: "3",
-									// 	OSType:   "1",
-									// },
 									RealTimeProtection: "no",
 									LastFullScanTime:   "n/a",
 								},
