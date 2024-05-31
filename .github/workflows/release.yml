@@ -33,7 +33,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: gohip-${{ matrix.goos }}-${{ matrix.goarch }}
-          path: gohip-${{ matrix.goos }}-${{ matrix.goarch }}
+          path: ./
 
   release:
     runs-on: ubuntu-latest
