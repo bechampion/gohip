@@ -30,15 +30,15 @@ func GetPackageManager() ([]ctypes.ListEntry) {
 	}
 
 	packageManagers := map[string]string{
-		"debian":  "apt",
-		"ubuntu":  "apt",
-		"centos":  "yum",
-		"fedora":  "dnf",
-		"rhel":    "yum",
-		"arch":    "pacman",
-		"manjaro": "pacman",
-		"opensuse": "zypper",
-		"suse":    "zypper",
+		"Debian":  "apt",
+		"Ubuntu":  "apt",
+		"Centos":  "yum",
+		"Fedora":  "dnf",
+		"RedHat":    "yum",
+		"Arch":    "pacman",
+		"Manjaro": "pacman",
+		"Opensuse": "zypper",
+		"Suse":    "zypper",
 	}
 
 	if pkgManager, found := packageManagers[distro]; found {
