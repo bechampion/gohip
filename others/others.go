@@ -5,6 +5,7 @@ import (
 	"bufio"
 	"os"
 	"strings"
+	"io/ioutil"
 	ctypes "types"
 	"os/exec"
 )
@@ -82,4 +83,34 @@ func GetFirewall() []ctypes.ListEntry {
 		}
 		listfw = append(listfw,prod)
 		return listfw
+}
+func GetEncryptedPartitions() []ctypes.DriveEntry {
+	drives := []ctypes.DriveEntry{}
+	data, err := ioutil.ReadFile("/proc/partitions")
+	if err != nil {
+		return drives
+	}
+
+	lines := strings.Split(string(data), "\n")
+
+	for _, line := range lines {
+		fields := strings.Fields(line)
+		if len(fields) == 4 {
+			partition := fields[3]
+			if _, err := os.Stat("/dev/mapper/" + partition); !os.IsNotExist(err) {
+				drives = append(drives,ctypes.DriveEntry{
+					DriveName: partition,
+					EncState: "encrypted",
+				})
+				} else {
+				drives = append(drives,ctypes.DriveEntry{
+					DriveName: partition,
+					EncState: "unncrypted",
+				})
+
+			}
+		}
+	}
+
+	return drives
 }

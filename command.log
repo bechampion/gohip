@@ -12,3 +12,7 @@
 2024/05/31 10:45:57 Command: ./hipx Arguments: 
 2024/05/31 10:46:25 Command: ./hipx Arguments: 
 2024/05/31 11:08:01 Command: ./hipx Arguments: 
+2024/05/31 17:04:08 Command: /tmp/go-build3403312817/b001/exe/main Arguments: --cookie user=testuser&domain=example.com&computer=testcomputer --client-ip 192.168.1.100 --md5 d41d8cd98f00b204e9800998ecf8427e
+2024/05/31 17:04:40 Command: /tmp/go-build1011212898/b001/exe/main Arguments: --cookie user=testuser&domain=example.com&computer=testcomputer --client-ip 192.168.1.100 --md5 d41d8cd98f00b204e9800998ecf8427e
+2024/05/31 17:08:28 Command: /tmp/go-build1298251003/b001/exe/main Arguments: --cookie user=testuser&domain=example.com&computer=testcomputer --client-ip 192.168.1.100 --md5 d41d8cd98f00b204e9800998ecf8427e
+2024/05/31 17:08:45 Command: /tmp/go-build2974797970/b001/exe/main Arguments: --cookie user=testuser&domain=example.com&computer=testcomputer --client-ip 192.168.1.100 --md5 d41d8cd98f00b204e9800998ecf8427e

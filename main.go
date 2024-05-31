@@ -115,20 +115,7 @@ func main() {
 										Version: "2.4.3",
 									},
 									Drives: &ctypes.Drives{
-										Entries: []ctypes.DriveEntry{
-											{
-												DriveName: "/",
-												EncState:  "unencrypted",
-											},
-											{
-												DriveName: "/home/user",
-												EncState:  "unencrypted",
-											},
-											{
-												DriveName: "All",
-												EncState:  "unencrypted",
-											},
-										},
+										Entries: others.GetEncryptedPartitions(),
 									},
 								},
 							},
