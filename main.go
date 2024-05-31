@@ -121,7 +121,7 @@ func main() {
 												EncState:  "unencrypted",
 											},
 											{
-												DriveName: "/home/jgarcia",
+												DriveName: "/home/user",
 												EncState:  "unencrypted",
 											},
 											{
