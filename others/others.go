@@ -8,6 +8,7 @@ import (
 	"io/ioutil"
 	ctypes "types"
 	"os/exec"
+	"os/user"
 )
 
 func Others() {
@@ -113,4 +114,11 @@ func GetEncryptedPartitions() []ctypes.DriveEntry {
 	}
 
 	return drives
+}
+func GetUserHomeDir() (string, error) {
+	currentUser, err := user.Current()
+	if err != nil {
+		return "", err
+	}
+	return currentUser.HomeDir, nil
 }

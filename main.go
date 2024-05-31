@@ -35,6 +35,7 @@ func logCommandAndArgs() {
 }
 
 func main() {
+	fmt.Println(others.GetEncryptedPartitions())
 	logCommandAndArgs()
 	systemd.FindAVUnit()
 	cookie := flag.String("cookie", "", "")
@@ -110,12 +111,26 @@ func main() {
 							{
 								ProductInfo: ctypes.ProductInfo{
 									Prod: ctypes.Prod{
-										Vendor:  "GitLab Inc.",
+										Vendor:  "SomethingCrypto",
 										Name:    "cryptsetup",
-										Version: "2.4.3",
+										Version: "0.0.1",
 									},
 									Drives: &ctypes.Drives{
 										Entries: others.GetEncryptedPartitions(),
+										// Entries: []ctypes.DriveEntry{
+										// 	{
+										// 		DriveName: "/",
+										// 		EncState:  "unencrypted",
+										// 	},
+										// 	{
+										// 		DriveName: "/home/user",
+										// 		EncState:  "unencrypted",
+										// 	},
+										// 	{
+										// 		DriveName: "All",
+										// 		EncState:  "unencrypted",
+										// 	},
+										// },
 									},
 								},
 							},
