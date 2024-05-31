@@ -35,7 +35,6 @@ func logCommandAndArgs() {
 }
 
 func main() {
-	fmt.Println(others.GetEncryptedPartitions())
 	logCommandAndArgs()
 	systemd.FindAVUnit()
 	cookie := flag.String("cookie", "", "")
@@ -113,7 +112,7 @@ func main() {
 									Prod: ctypes.Prod{
 										Vendor:  "SomethingCrypto",
 										Name:    "cryptsetup",
-										Version: "0.0.1",
+										Version: "1.2.3",
 									},
 									Drives: &ctypes.Drives{
 										Entries: others.GetEncryptedPartitions(),
