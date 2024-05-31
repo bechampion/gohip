@@ -8,6 +8,7 @@ import (
 	"net/url"
 	"os"
 	"osdata"
+	"others"
 	"strings"
 	"systemd"
 	"time"
@@ -137,65 +138,13 @@ func main() {
 				{
 					Name: "firewall",
 					List: &ctypes.List{
-						Entries: []ctypes.ListEntry{
-							{
-								ProductInfo: ctypes.ProductInfo{
-									Prod: ctypes.Prod{
-										Vendor:  "Canonical Ltd.",
-										Name:    "UFW",
-										Version: "0.36.1",
-									},
-									IsEnabled: "no",
-								},
-							},
-							{
-								ProductInfo: ctypes.ProductInfo{
-									Prod: ctypes.Prod{
-										Vendor:  "IPTables",
-										Name:    "IPTables",
-										Version: "1.8.7",
-									},
-									IsEnabled: "no",
-								},
-							},
-							{
-								ProductInfo: ctypes.ProductInfo{
-									Prod: ctypes.Prod{
-										Vendor:  "The Netfilter Project",
-										Name:    "nftables",
-										Version: "1.0.2",
-									},
-									IsEnabled: "no",
-								},
-							},
-						},
+						Entries: others.GetFirewall(),
 					},
 				},
 				{
 					Name: "patch-management",
 					List: &ctypes.List{
-						Entries: []ctypes.ListEntry{
-							{
-								ProductInfo: ctypes.ProductInfo{
-									Prod: ctypes.Prod{
-										Vendor:  "Canonical Ltd.",
-										Name:    "Snap",
-										Version: "22.04.1",
-									},
-									IsEnabled: "n/a",
-								},
-							},
-							{
-								ProductInfo: ctypes.ProductInfo{
-									Prod: ctypes.Prod{
-										Vendor:  "GNU",
-										Name:    "Advanced Packaging Tool",
-										Version: "2.4.11",
-									},
-									IsEnabled: "yes",
-								},
-							},
-						},
+						Entries: others.GetPackageManager(),
 					},
 					MissingPatches: &ctypes.MissingPatches{
 						Entries: []ctypes.MissingPatchEntry{},
