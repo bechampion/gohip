@@ -49,7 +49,7 @@ func GetClamDetails() (ClamDetails, error) {
     cd := ClamDetails{}
     cd.Version = strings.Split(strings.Split(cleanout, " ")[1], "/")[0]
     cd.Defver = strings.Split(strings.Split(cleanout, " ")[1], "/")[1]
-    m,_ := time.Parse("January",strings.Split(cleanout, " ")[2])
+    m,_ := time.Parse("Jan",strings.Split(cleanout, " ")[2])
     cd.Month = fmt.Sprintf("%d",int(m.Month()))
     cd.Day = strings.Split(cleanout, " ")[3]
     cd.Year = strings.Split(cleanout, " ")[5][:4]
