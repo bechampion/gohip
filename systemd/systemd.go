@@ -4,6 +4,7 @@ import (
     "bytes"
     "fmt"
     "os/exec"
+    "regexp"
     "strings"
     "time"
     ctypes "types"
@@ -43,14 +44,15 @@ func GetClamDetails() (ClamDetails, error) {
         return ClamDetails{}, err
     }
     //This is gnarly
+    re := regexp.MustCompile(`\s{2,}`)
+	cleanout := re.ReplaceAllString(out.String(), " ")
     cd := ClamDetails{}
-    cd.Version = strings.Split(strings.Split(out.String(), " ")[1], "/")[0]
-    cd.Defver = strings.Split(strings.Split(out.String(), " ")[1], "/")[1]
-    m,_ := time.Parse("January",strings.Split(out.String(), " ")[2])
-    // fmt.Printf("dada -> %d\n",int(m.Month()))
+    cd.Version = strings.Split(strings.Split(cleanout, " ")[1], "/")[0]
+    cd.Defver = strings.Split(strings.Split(cleanout, " ")[1], "/")[1]
+    m,_ := time.Parse("January",strings.Split(cleanout, " ")[2])
     cd.Month = fmt.Sprintf("%d",int(m.Month()))
-    cd.Day = strings.Split(out.String(), " ")[3]
-    cd.Year = strings.Split(out.String(), " ")[5][:4]
+    cd.Day = strings.Split(cleanout, " ")[3]
+    cd.Year = strings.Split(cleanout, " ")[5][:4]
     return cd, nil
 }
 func FindAVUnit() (ctypes.Prod) {
