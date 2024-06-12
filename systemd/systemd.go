@@ -69,6 +69,7 @@ func FindAVUnit() (ctypes.Prod) {
         return ctypes.Prod{}
     }
 
+    //We look for clamv unti and if it's active we're good to go
     for _, unit := range units {
         if strings.Contains(unit.Name, "clam") {
             if unit.ActiveState == "active" && unit.SubState == "running" {
