@@ -4,6 +4,7 @@ import (
     "bytes"
     "fmt"
     "os/exec"
+    "os"
     "regexp"
     "strings"
     "time"
@@ -55,25 +56,41 @@ func GetClamDetails() (ClamDetails, error) {
     cd.Year = strings.Split(cleanout, " ")[5][:4]
     return cd, nil
 }
-func FindInitdStatus() ([]Unit, error) {
+func FindInitdStatus() (ctypes.Prod) {
 	cmd := exec.Command("/etc/init.d/clamd", "status")
 	var out bytes.Buffer
-    var units []Unit
 	cmd.Stdout = &out
 	cmd.Stderr = &out
 	err := cmd.Run()
 	if err != nil {
-		return nil, fmt.Errorf("error running '/etc/init.d/clamd status': %v, output: %s", err, out.String())
+		return ctypes.Prod{}
 	}
 	if strings.Contains(out.String(), "started") {
-        units[0].ActiveState = "active"
-        units[0].SubState = "running"
-        return units,nil
+                cd, err := GetClamDetails()
+                if err != nil {
+                    return ctypes.Prod{}
+                }
+                return ctypes.Prod{
+                    Vendor:   "Cisco Systems, Inc.",
+                    Name:     "ClamAV",
+                    Version:  cd.Version,
+                    DateMon:  cd.Month,
+                    DateDay:  cd.Day,
+                    DateYear: cd.Year,
+                    DefVer:   cd.Defver,
+                    ProdType: "3",
+                    OSType:   "1",
+                }
+
     }
-    return nil,fmt.Errorf("clamd not running? init.d?")
+    return ctypes.Prod{}
 }
 
 func FindAVUnit() (ctypes.Prod) {
+    if _, err := os.Stat("/tmp/init.d"); err == nil {
+        return FindInitdStatus()
+	}
+
     conn, err := dbus.SystemBus()
     if err != nil {
         panic("Failed to connect to system bus")
@@ -84,13 +101,7 @@ func FindAVUnit() (ctypes.Prod) {
     err = obj.Call("org.freedesktop.systemd1.Manager.ListUnits", 0).Store(&units)
     if err != nil {
         fmt.Printf("Failed to list units: %v\n", err)
-        initd,err := FindInitdStatus()
-        if err != nil {
                     return ctypes.Prod{}
-        }
-        if len(initd) == 0 {
-                    return ctypes.Prod{}
-        }
     }
 
     //We look for clamv unti and if it's active we're good to go
