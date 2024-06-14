@@ -66,7 +66,6 @@ func FindAVUnit() (ctypes.Prod) {
     err = obj.Call("org.freedesktop.systemd1.Manager.ListUnits", 0).Store(&units)
     if err != nil {
         fmt.Printf("Failed to list units: %v\n", err)
-        return ctypes.Prod{}
     }
 
     //We look for clamv unti and if it's active we're good to go
