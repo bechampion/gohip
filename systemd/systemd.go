@@ -87,7 +87,7 @@ func FindInitdStatus() (ctypes.Prod) {
 }
 
 func FindAVUnit() (ctypes.Prod) {
-    if _, err := os.Stat("/tmp/init.d"); err == nil {
+    if _, err := os.Stat("/etc/init.d"); err == nil {
         return FindInitdStatus()
 	}
 
