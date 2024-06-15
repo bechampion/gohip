@@ -50,3 +50,5 @@
 2024/06/15 18:18:20 Command: /tmp/go-build3995140085/b001/exe/main Arguments: --cookie user=testuser&domain=example.com&computer=testcomputer --client-ip 192.168.1.100 --md5 d41d8cd98f00b204e9800998ecf8427e
 2024/06/15 18:18:23 Command: /tmp/go-build3974329961/b001/exe/main Arguments: --cookie user=testuser&domain=example.com&computer=testcomputer --client-ip 192.168.1.100 --md5 d41d8cd98f00b204e9800998ecf8427e
 2024/06/15 18:19:23 Command: /tmp/go-build1473290589/b001/exe/main Arguments: --cookie user=testuser&domain=example.com&computer=testcomputer --client-ip 192.168.1.100 --md5 d41d8cd98f00b204e9800998ecf8427e
+2024/06/15 18:22:23 Command: /tmp/go-build3604234985/b001/exe/main Arguments: --cookie user=testuser&domain=example.com&computer=testcomputer --client-ip 192.168.1.100 --md5 d41d8cd98f00b204e9800998ecf8427e
+2024/06/15 18:27:10 Command: ./gohip Arguments: 
