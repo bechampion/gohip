@@ -36,7 +36,7 @@ func logCommandAndArgs() {
 
 func main() {
 	logCommandAndArgs()
-	systemd.FindAVUnit()
+	systemd.FindClamdProcess()
 	cookie := flag.String("cookie", "", "")
 	 _ = flag.String("client-os", "", "")
 	//--client-ip seems to be fed from openconect but i don't think it's used
@@ -89,7 +89,7 @@ func main() {
 						Entries: []ctypes.ListEntry{
 							{
 								ProductInfo: ctypes.ProductInfo{
-									Prod: systemd.FindAVUnit(),
+									Prod: systemd.FindClamdProcess(),
 									RealTimeProtection: "no",
 									LastFullScanTime:   "n/a",
 								},
@@ -172,9 +172,4 @@ func main() {
 
 	fmt.Println(string(xmlData))
 	os.Exit(0)
-	if err != nil {
-		fmt.Printf("error: %v\n", err)
-		return
-	}
-
 }
