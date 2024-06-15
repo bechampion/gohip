@@ -92,9 +92,9 @@ type IPAddresses struct {
 	Entries []IPEntry `xml:"entry"`
 }
 type NetworkEntry struct {
-	Name         string     `xml:"name,attr"`
-	Description  string     `xml:"description"`
-	MacAddress   string     `xml:"mac-address"`
-	IPAddress    IPAddresses `xml:"ip-address,omitempty"`
-	IPv6Address  IPAddresses `xml:"ipv6-address,omitempty"`
+	Name        string      `xml:"name,attr"`
+	Description string      `xml:"description"`
+	MacAddress  string      `xml:"mac-address"`
+	IPAddress   IPAddresses `xml:"ip-address,omitempty"`
+	IPv6Address IPAddresses `xml:"ipv6-address,omitempty"`
 }

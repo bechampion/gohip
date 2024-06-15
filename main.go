@@ -4,53 +4,44 @@ import (
 	"encoding/xml"
 	"flag"
 	"fmt"
+	osdata "github.com/bechampion/gohip/osdata"
+	others "github.com/bechampion/gohip/others"
+	systemd "github.com/bechampion/gohip/systemd"
+	ctypes "github.com/bechampion/gohip/types"
 	"log"
 	"net/url"
 	"os"
 	"strings"
 	"time"
-	others "github.com/bechampion/gohip/others"
-	osdata "github.com/bechampion/gohip/osdata"
-	ctypes "github.com/bechampion/gohip/types"
-	systemd "github.com/bechampion/gohip/systemd"
 )
 
 func logCommandAndArgs() {
-    // Get the command and arguments
-    command := os.Args[0]
-    args := strings.Join(os.Args[1:], " ")
-
-    // Create or open the log file
-    file, err := os.OpenFile("command.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
-    if err != nil {
-        log.Fatalf("Failed to open log file: %v", err)
-    }
-    defer file.Close()
-
-    // Create a logger
-    logger := log.New(file, "", log.LstdFlags)
-
-    // Log the command and arguments
-    logger.Printf("Command: %s Arguments: %s\n", command, args)
+	command := os.Args[0]
+	args := strings.Join(os.Args[1:], " ")
+	file, err := os.OpenFile("command.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	if err != nil {
+		log.Fatalf("Failed to open log file: %v", err)
+	}
+	defer file.Close()
+	logger := log.New(file, "", log.LstdFlags)
+	logger.Printf("Command: %s Arguments: %s\n", command, args)
 }
 
 func main() {
 	logCommandAndArgs()
 	systemd.FindClamdProcess()
 	cookie := flag.String("cookie", "", "")
-	 _ = flag.String("client-os", "", "")
-	//--client-ip seems to be fed from openconect but i don't think it's used
-	clientip  := flag.String("client-ip", "", "")
+	_ = flag.String("client-os", "", "")
+	clientip := flag.String("client-ip", "", "")
 	md5 := flag.String("md5", "", "")
-    flag.Parse()
+	flag.Parse()
 	values, err := url.ParseQuery(*cookie)
 	if err != nil {
 		panic(err)
 	}
 	user := values.Get("user")
 	domain := values.Get("domain")
-	// Computer doesn't seem to be used , i leave it here for future reference
-	 _ = values.Get("computer")
+	_ = values.Get("computer")
 
 	hostname, err := osdata.GetHostname()
 	if err != nil {
@@ -68,12 +59,12 @@ func main() {
 		Name:         "hip-report",
 		GenerateTime: time.Now().Format("01/02/2006 15:04:05"),
 		Version:      4,
-		User: user,
-		HostName: hostname,
-		HostId: hostname,
-		Md5: *md5,
-		Ip: *clientip,
-		Domain: domain,
+		User:         user,
+		HostName:     hostname,
+		HostId:       hostname,
+		Md5:          *md5,
+		Ip:           *clientip,
+		Domain:       domain,
 		Categories: ctypes.Categories{
 			Entries: []ctypes.CategoryEntry{
 				{
@@ -89,7 +80,7 @@ func main() {
 						Entries: []ctypes.ListEntry{
 							{
 								ProductInfo: ctypes.ProductInfo{
-									Prod: systemd.FindClamdProcess(),
+									Prod:               systemd.FindClamdProcess(),
 									RealTimeProtection: "no",
 									LastFullScanTime:   "n/a",
 								},
@@ -116,20 +107,6 @@ func main() {
 									},
 									Drives: &ctypes.Drives{
 										Entries: others.GetEncryptedPartitions(),
-										// Entries: []ctypes.DriveEntry{
-										// 	{
-										// 		DriveName: "/",
-										// 		EncState:  "unencrypted",
-										// 	},
-										// 	{
-										// 		DriveName: "/home/user",
-										// 		EncState:  "unencrypted",
-										// 	},
-										// 	{
-										// 		DriveName: "All",
-										// 		EncState:  "unencrypted",
-										// 	},
-										// },
 									},
 								},
 							},

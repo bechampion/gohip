@@ -1,21 +1,21 @@
 package others
 
 import (
-	"fmt"
 	"bufio"
-	"os"
-	"strings"
-	"io/ioutil"
+	"fmt"
 	ctypes "github.com/bechampion/gohip/types"
+	"io/ioutil"
+	"os"
 	"os/exec"
 	"os/user"
+	"strings"
 )
 
 func Others() {
 	fmt.Println("hello")
 }
 
-func GetPackageManager() ([]ctypes.ListEntry) {
+func GetPackageManager() []ctypes.ListEntry {
 	var listpkgs []ctypes.ListEntry
 	file, _ := os.Open("/etc/os-release")
 	defer file.Close()
@@ -32,29 +32,29 @@ func GetPackageManager() ([]ctypes.ListEntry) {
 	}
 
 	packageManagers := map[string]string{
-		"Debian":  "apt",
-		"Ubuntu":  "apt",
-		"Centos":  "yum",
-		"Fedora":  "dnf",
-		"RedHat":    "yum",
-		"Arch":    "pacman",
-		"Manjaro": "pacman",
+		"Debian":   "apt",
+		"Ubuntu":   "apt",
+		"Centos":   "yum",
+		"Fedora":   "dnf",
+		"RedHat":   "yum",
+		"Arch":     "pacman",
+		"Manjaro":  "pacman",
 		"Opensuse": "zypper",
-		"Suse":    "zypper",
+		"Suse":     "zypper",
 	}
 
 	if pkgManager, found := packageManagers[distro]; found {
 		prod := ctypes.ListEntry{
-		ProductInfo: ctypes.ProductInfo{
-				Prod: ctypes.Prod {
-					Vendor: distro,
-						Name: pkgManager,
-						Version: "1",
-					},
+			ProductInfo: ctypes.ProductInfo{
+				Prod: ctypes.Prod{
+					Vendor:  distro,
+					Name:    pkgManager,
+					Version: "1",
+				},
 				IsEnabled: "yes",
 			},
 		}
-		listpkgs = append(listpkgs,prod)
+		listpkgs = append(listpkgs, prod)
 		return listpkgs
 	}
 
@@ -63,7 +63,7 @@ func GetPackageManager() ([]ctypes.ListEntry) {
 func GetFirewall() []ctypes.ListEntry {
 	var listfw []ctypes.ListEntry
 	fw := "none"
-    vendor := "none"
+	vendor := "none"
 	if _, err := exec.LookPath("ufw"); err == nil {
 		fw = "ufw"
 		vendor = "Canonical Ltd."
@@ -72,18 +72,18 @@ func GetFirewall() []ctypes.ListEntry {
 		fw = "iptables"
 		vendor = "IPTables"
 	}
-		prod := ctypes.ListEntry{
+	prod := ctypes.ListEntry{
 		ProductInfo: ctypes.ProductInfo{
-				Prod: ctypes.Prod {
-					Vendor: vendor,
-						Name: fw,
-						Version: "1",
-					},
-				IsEnabled: "yes",
+			Prod: ctypes.Prod{
+				Vendor:  vendor,
+				Name:    fw,
+				Version: "1",
 			},
-		}
-		listfw = append(listfw,prod)
-		return listfw
+			IsEnabled: "yes",
+		},
+	}
+	listfw = append(listfw, prod)
+	return listfw
 }
 func GetEncryptedPartitions() []ctypes.DriveEntry {
 	drives := []ctypes.DriveEntry{}
@@ -99,14 +99,14 @@ func GetEncryptedPartitions() []ctypes.DriveEntry {
 		if len(fields) == 4 {
 			partition := fields[3]
 			if _, err := os.Stat("/dev/mapper/" + partition); !os.IsNotExist(err) {
-				drives = append(drives,ctypes.DriveEntry{
+				drives = append(drives, ctypes.DriveEntry{
 					DriveName: partition,
-					EncState: "encrypted",
+					EncState:  "encrypted",
 				})
-				} else {
-				drives = append(drives,ctypes.DriveEntry{
+			} else {
+				drives = append(drives, ctypes.DriveEntry{
 					DriveName: partition,
-					EncState: "unncrypted",
+					EncState:  "unncrypted",
 				})
 
 			}
