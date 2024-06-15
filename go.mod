@@ -1,4 +1,4 @@
-module hip
+module github.com/bechampion/gohip
 
 go 1.22.3
 
