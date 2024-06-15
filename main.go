@@ -10,10 +10,10 @@ import (
 	"osdata"
 	"others"
 	"strings"
-	"systemd"
 	"time"
 	// ctypes "types"
 	ctypes "github.com/bechampion/gohip/types"
+	systemd "github.com/bechampion/gohip/systemd"
 )
 
 func logCommandAndArgs() {

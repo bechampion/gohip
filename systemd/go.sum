@@ -1,2 +1,2 @@
-github.com/godbus/dbus/v5 v5.1.0 h1:4KLkAxT3aOY8Li4FRJe/KvhoNFFxo0m6fNuFUO8QJUk=
-github.com/godbus/dbus/v5 v5.1.0/go.mod h1:xhWf0FNVPg57R7Z0UbKHbJfkEywrmjJnf7w5xrFpKfA=
+github.com/bechampion/gohip/types v0.0.0-20240615162333-918ade08d726 h1:QowXmrFAANXYtDIuQOE7kx95vqH0/jam09nHKMgGVbY=
+github.com/bechampion/gohip/types v0.0.0-20240615162333-918ade08d726/go.mod h1:53Die0OQJzRseQ5d54hf/bP8H6QhknWgg2XbZsiX55I=

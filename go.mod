@@ -16,3 +16,5 @@ go 1.22.3
 // 	systemd v0.0.0-00010101000000-000000000000
 // 	types v0.0.0-00010101000000-000000000000
 // )
+
+require github.com/bechampion/gohip/types v0.0.0-20240615162333-918ade08d726

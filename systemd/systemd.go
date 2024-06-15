@@ -7,7 +7,7 @@ import (
     "regexp"
     "strings"
     "time"
-    ctypes "types"
+    ctypes "github.com/bechampion/gohip/types"
 )
 
 type ClamDetails struct {
