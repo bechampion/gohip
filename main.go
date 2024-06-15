@@ -12,7 +12,8 @@ import (
 	"strings"
 	"systemd"
 	"time"
-	ctypes "types"
+	// ctypes "types"
+	ctypes "github.com/bechampion/gohip/types"
 )
 
 func logCommandAndArgs() {
