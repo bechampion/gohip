@@ -17,3 +17,27 @@
 2024/05/31 17:08:28 Command: /tmp/go-build1298251003/b001/exe/main Arguments: --cookie user=testuser&domain=example.com&computer=testcomputer --client-ip 192.168.1.100 --md5 d41d8cd98f00b204e9800998ecf8427e
 2024/05/31 17:08:45 Command: /tmp/go-build2974797970/b001/exe/main Arguments: --cookie user=testuser&domain=example.com&computer=testcomputer --client-ip 192.168.1.100 --md5 d41d8cd98f00b204e9800998ecf8427e
 2024/06/12 15:11:59 Command: /tmp/go-build102418494/b001/exe/main Arguments: --cookie user=testuser&domain=example.com&computer=testcomputer --client-ip 192.168.1.100 --md5 d41d8cd98f00b204e9800998ecf8427e
+2024/06/12 16:33:24 Command: ./gohip Arguments: 
+2024/06/12 16:33:29 Command: ./gohip Arguments: 
+2024/06/12 16:33:37 Command: ./gohip Arguments: 
+2024/06/12 16:43:40 Command: ./gohip Arguments: 
+2024/06/12 16:44:44 Command: ./gohip Arguments: 
+2024/06/12 16:44:59 Command: ./gohip Arguments: 
+2024/06/12 16:46:11 Command: ./gohip Arguments: 
+2024/06/14 13:48:20 Command: /tmp/go-build286810671/b001/exe/main Arguments: --cookie user=testuser&domain=example.com&computer=testcomputer --client-ip 192.168.1.100 --md5 d41d8cd98f00b204e9800998ecf8427e
+2024/06/14 14:00:07 Command: /tmp/go-build2705551223/b001/exe/main Arguments: --cookie user=testuser&domain=example.com&computer=testcomputer --client-ip 192.168.1.100 --md5 d41d8cd98f00b204e9800998ecf8427e
+2024/06/14 14:00:12 Command: /tmp/go-build592363682/b001/exe/main Arguments: --cookie user=testuser&domain=example.com&computer=testcomputer --client-ip 192.168.1.100 --md5 d41d8cd98f00b204e9800998ecf8427e
+2024/06/14 14:00:14 Command: /tmp/go-build502104120/b001/exe/main Arguments: --cookie user=testuser&domain=example.com&computer=testcomputer --client-ip 192.168.1.100 --md5 d41d8cd98f00b204e9800998ecf8427e
+2024/06/14 14:00:21 Command: /tmp/go-build2460953921/b001/exe/main Arguments: --cookie user=testuser&domain=example.com&computer=testcomputer --client-ip 192.168.1.100 --md5 d41d8cd98f00b204e9800998ecf8427e
+2024/06/14 14:00:40 Command: /tmp/go-build1120191825/b001/exe/main Arguments: --cookie user=testuser&domain=example.com&computer=testcomputer --client-ip 192.168.1.100 --md5 d41d8cd98f00b204e9800998ecf8427e
+2024/06/14 14:00:43 Command: /tmp/go-build2717711703/b001/exe/main Arguments: --cookie user=testuser&domain=example.com&computer=testcomputer --client-ip 192.168.1.100 --md5 d41d8cd98f00b204e9800998ecf8427e
+2024/06/14 14:01:05 Command: /tmp/go-build1816289356/b001/exe/main Arguments: --cookie user=testuser&domain=example.com&computer=testcomputer --client-ip 192.168.1.100 --md5 d41d8cd98f00b204e9800998ecf8427e
+2024/06/14 14:01:10 Command: /tmp/go-build3728441301/b001/exe/main Arguments: --cookie user=testuser&domain=example.com&computer=testcomputer --client-ip 192.168.1.100 --md5 d41d8cd98f00b204e9800998ecf8427e
+2024/06/14 14:02:33 Command: /tmp/go-build1922990443/b001/exe/main Arguments: --cookie user=testuser&domain=example.com&computer=testcomputer --client-ip 192.168.1.100 --md5 d41d8cd98f00b204e9800998ecf8427e
+2024/06/14 14:03:28 Command: /tmp/go-build1312499973/b001/exe/main Arguments: --cookie user=testuser&domain=example.com&computer=testcomputer --client-ip 192.168.1.100 --md5 d41d8cd98f00b204e9800998ecf8427e
+2024/06/14 14:03:34 Command: /tmp/go-build3617054544/b001/exe/main Arguments: --cookie user=testuser&domain=example.com&computer=testcomputer --client-ip 192.168.1.100 --md5 d41d8cd98f00b204e9800998ecf8427e
+2024/06/15 09:55:36 Command: /tmp/go-build3212925363/b001/exe/main Arguments: --cookie user=testuser&domain=example.com&computer=testcomputer --client-ip 192.168.1.100 --md5 d41d8cd98f00b204e9800998ecf8427e
+2024/06/15 09:55:58 Command: /tmp/go-build3255603499/b001/exe/main Arguments: --cookie user=testuser&domain=example.com&computer=testcomputer --client-ip 192.168.1.100 --md5 d41d8cd98f00b204e9800998ecf8427e
+2024/06/15 09:58:11 Command: ./gohip Arguments: 
+2024/06/15 09:58:16 Command: ./gohip Arguments: 
+2024/06/15 09:58:28 Command: ./gohip Arguments: 

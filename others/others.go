@@ -6,7 +6,7 @@ import (
 	"os"
 	"strings"
 	"io/ioutil"
-	ctypes "types"
+	ctypes "github.com/bechampion/gohip/types"
 	"os/exec"
 	"os/user"
 )

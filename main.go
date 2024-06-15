@@ -7,11 +7,10 @@ import (
 	"log"
 	"net/url"
 	"os"
-	"osdata"
-	"others"
 	"strings"
 	"time"
-	// ctypes "types"
+	others "github.com/bechampion/gohip/others"
+	osdata "github.com/bechampion/gohip/osdata"
 	ctypes "github.com/bechampion/gohip/types"
 	systemd "github.com/bechampion/gohip/systemd"
 )
