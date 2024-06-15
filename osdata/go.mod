@@ -1,12 +1,10 @@
-module osdata
+module github.com/bechampion/gohip/osdata
 
 go 1.22.3
 
-replace types => ../types
-
 require (
+	github.com/bechampion/gohip/types v0.0.0-20240615162649-e52f38b1aa94
 	github.com/shirou/gopsutil/v3 v3.24.4
-	types v0.0.0-00010101000000-000000000000
 )
 
 require (

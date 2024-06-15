@@ -1,2 +1,4 @@
+github.com/bechampion/gohip/systemd v0.0.0-20240615162649-e52f38b1aa94 h1:cvTYKVvSTcRNH70EAxl/wL3mOzilcfkzaXZ6WzE1LpU=
+github.com/bechampion/gohip/systemd v0.0.0-20240615162649-e52f38b1aa94/go.mod h1:f8KC+DIU838ggN5cCO4yCgcF54nQ0Rd7bPFx8UKS0ng=
 github.com/bechampion/gohip/types v0.0.0-20240615162333-918ade08d726 h1:QowXmrFAANXYtDIuQOE7kx95vqH0/jam09nHKMgGVbY=
 github.com/bechampion/gohip/types v0.0.0-20240615162333-918ade08d726/go.mod h1:53Die0OQJzRseQ5d54hf/bP8H6QhknWgg2XbZsiX55I=

@@ -4,8 +4,7 @@ import (
     "fmt"
     "os"
     "strings"
-	ctypes "types"
-
+	ctypes "github.com/bechampion/gohip/types"
     "github.com/shirou/gopsutil/v3/host"
     "github.com/shirou/gopsutil/v3/net"
 )
