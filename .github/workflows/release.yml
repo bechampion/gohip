@@ -6,6 +6,7 @@ on:
       - main
     tags:
       - 'v*.*.*' # Matches v1.0.0, v2.1.3, etc.
+      - 'latest'
 
 jobs:
   build:
