@@ -1,9 +1,11 @@
 github.com/bechampion/gohip/osdata v0.0.0-20240615162838-24fd4fe6ae1c h1:o3vkZcBgKR8fEJtc9DX+7aUEGUAC8VC+WcBVbEV+qM4=
 github.com/bechampion/gohip/osdata v0.0.0-20240615162838-24fd4fe6ae1c/go.mod h1:6dodTTH25bYxK/QqG4UkD5LTE8m/keZXLtMI/NAQYUE=
+github.com/bechampion/gohip/others v0.0.0-20240615163101-e647f8629345 h1:kBcLtdQvi1rjHVuG5YUf1rAvwiUXg/EaCN/d3yhISWM=
+github.com/bechampion/gohip/others v0.0.0-20240615163101-e647f8629345/go.mod h1:uicBZczvyva96qCHkjW2JRq3OxFus4T13OaTY+rzNnc=
 github.com/bechampion/gohip/systemd v0.0.0-20240615162649-e52f38b1aa94 h1:cvTYKVvSTcRNH70EAxl/wL3mOzilcfkzaXZ6WzE1LpU=
 github.com/bechampion/gohip/systemd v0.0.0-20240615162649-e52f38b1aa94/go.mod h1:f8KC+DIU838ggN5cCO4yCgcF54nQ0Rd7bPFx8UKS0ng=
-github.com/bechampion/gohip/types v0.0.0-20240615162649-e52f38b1aa94 h1:1LYyPBeCru47r5VwQnKNRpMcZlKzrqD8E/fStkc5dr8=
-github.com/bechampion/gohip/types v0.0.0-20240615162649-e52f38b1aa94/go.mod h1:53Die0OQJzRseQ5d54hf/bP8H6QhknWgg2XbZsiX55I=
+github.com/bechampion/gohip/types v0.0.0-20240615162838-24fd4fe6ae1c h1:QTnpKqhL0/w393NPPO+f349ng5cIjCdEKHoy9SoiVJU=
+github.com/bechampion/gohip/types v0.0.0-20240615162838-24fd4fe6ae1c/go.mod h1:53Die0OQJzRseQ5d54hf/bP8H6QhknWgg2XbZsiX55I=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1 h1:vj9j/u1bqnvCEfJOwUhtlOARqs3+rkHYY13jYWTU97c=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
