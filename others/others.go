@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"fmt"
 	ctypes "github.com/bechampion/gohip/types"
-	"io/ioutil"
 	"os"
 	"os/exec"
 	"os/user"
@@ -86,34 +85,34 @@ func GetFirewall() []ctypes.ListEntry {
 	return listfw
 }
 func GetEncryptedPartitions() []ctypes.DriveEntry {
-	drives := []ctypes.DriveEntry{}
-	data, err := ioutil.ReadFile("/proc/partitions")
-	if err != nil {
-		return drives
-	}
+drives := []ctypes.DriveEntry{}
+file, err := os.Open("/proc/mounts")
+    if err != nil {
+        return []ctypes.DriveEntry{}
+    }
+    defer file.Close()
 
-	lines := strings.Split(string(data), "\n")
-
-	for _, line := range lines {
-		fields := strings.Fields(line)
-		if len(fields) == 4 {
-			partition := fields[3]
-			if _, err := os.Stat("/dev/mapper/" + partition); !os.IsNotExist(err) {
+    scanner := bufio.NewScanner(file)
+    for scanner.Scan() {
+        line := scanner.Text()
+        fields := strings.Fields(line)
+        if len(fields) < 2 {
+            continue
+        }
+        mountPoint := fields[1]
+        if mountPoint == "/" {
 				drives = append(drives, ctypes.DriveEntry{
-					DriveName: partition,
-					EncState:  "encrypted",
-				})
-			} else {
-				drives = append(drives, ctypes.DriveEntry{
-					DriveName: partition,
+					DriveName: fields[0],
 					EncState:  "unncrypted",
 				})
+        }
+    }
 
-			}
-		}
-	}
-
+    if err := scanner.Err(); err != nil {
+        return []ctypes.DriveEntry{}
+    }
 	return drives
+
 }
 func GetUserHomeDir() (string, error) {
 	currentUser, err := user.Current()
