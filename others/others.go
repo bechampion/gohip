@@ -103,7 +103,8 @@ file, err := os.Open("/proc/mounts")
         if mountPoint == "/" {
 				drives = append(drives, ctypes.DriveEntry{
 					DriveName: fields[0],
-					EncState:  "unncrypted",
+					//This is hardcoded ,  we need to fix
+					EncState:  "unencrypted",
 				})
         }
     }
