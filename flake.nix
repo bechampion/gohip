@@ -16,7 +16,8 @@
             pname = "gohip";
 
             src = ./.;
-            vendorHash = "sha256-kikKkz2XnAo6MVVbu4VOMyW9xUqlxjTrjhzAaGph1CY=";
+            vendorHash = "sha256-jZcR+OMiGplA5yVMpQT4qNKH+tyFp7PXQVoG+oghBLs=";
+            proxyVendor = true;
             excludedPackages = ["osdata" "others" "systemd" "types"];
           });
 
@@ -28,7 +29,7 @@
             gohip = flake-utils.lib.mkApp {
               drv = pkgs.writeShellScriptBin "gohip" ''
                 cd `mktemp -d`
-                "${gohip-package}"/bin/hip
+                "${gohip-package}"/bin/gohip
               '';
             };
             default = gohip;
