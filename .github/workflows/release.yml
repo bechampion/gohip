@@ -78,7 +78,7 @@ jobs:
           echo "RELEASE_VERSION=$RELEASE_VERSION" >> $GITHUB_ENV
       - name: Create CentOS 8 package
         run: |
-          wget https://github.com/grumlimited/gohip/releases/download/v$RELEASE_VERSION/gohip-$RELEASE_VERSION-x86_64.deb -O gohip-$RELEASE_VERSION-x86_64.deb
+          wget https://github.com/bechampion/gohip/releases/download/v$RELEASE_VERSION/gohip-$RELEASE_VERSION-x86_64.deb -O gohip-$RELEASE_VERSION-x86_64.deb
 
           alien -r -k --scripts --target=x86_64 gohip-$RELEASE_VERSION-x86_64.deb
           md5sum gohip-$RELEASE_VERSION-1.x86_64.rpm >> gohip-$RELEASE_VERSION-1.x86_64.rpm
@@ -104,7 +104,7 @@ jobs:
           RELEASE_VERSION=$(echo ${{ github.ref }} | tr -d 'refs/tags/v')
           echo "RELEASE_VERSION=$RELEASE_VERSION" >> $GITHUB_ENV
           
-          wget https://github.com/grumlimited/gohip/releases/download/v$RELEASE_VERSION/gohip-$RELEASE_VERSION-x86_64.deb -O build-aux/arch/gohip-bin/gohip-$RELEASE_VERSION-x86_64.deb
+          wget https://github.com/bechampion/gohip/releases/download/v$RELEASE_VERSION/gohip-$RELEASE_VERSION-x86_64.deb -O build-aux/arch/gohip-bin/gohip-$RELEASE_VERSION-x86_64.deb
 
           MD5_SUM=$(md5sum build-aux/arch/gohip-bin/gohip-$RELEASE_VERSION-x86_64.deb | awk '{print $1}')
           awk -v q="'" -v MD5_SUM=$MD5_SUM -i inplace 'BEGINFILE{print "md5sums=(" q MD5_SUM q ")"}{print}' build-aux/arch/gohip-bin/PKGBUILD
