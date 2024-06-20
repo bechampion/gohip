@@ -1,0 +1,7 @@
+Package: gohip
+Section: network
+Priority: optional
+Architecture: amd64
+Depends: iproute2
+Maintainer: romain_gallet_at_gmail_com
+Description: gohip global protect vpn HIP script
