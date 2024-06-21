@@ -1,5 +1,7 @@
-module github.com/bechampion/gohip/others
+module gohip/gohip/others
 
 go 1.22.3
 
-require github.com/bechampion/gohip/types v0.0.0-20240615162838-24fd4fe6ae1c
+replace gohip/types => ../types
+
+require gohip/types v0.0.0-00010101000000-000000000000

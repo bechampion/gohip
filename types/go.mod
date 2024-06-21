@@ -1,3 +1,3 @@
-module github.com/bechampion/gohip/types
+module gohip/types
 
 go 1.22.3
