@@ -1,0 +1,5 @@
+#!/bin/sh
+
+chmod +x /usr/bin/gohip
+
+exit 0

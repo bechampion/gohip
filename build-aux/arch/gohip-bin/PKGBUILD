@@ -1,0 +1,28 @@
+_packager="Romain Gallet <romain_gallet_at_gmail_com"
+_deb_pkgname=gohip
+pkgname=gohip-bin
+pkgrel=1
+pkgdesc='gohip global protect vpn HIP script.'
+arch=('x86_64')
+url="https://github.com/bechampion/$_deb_pkgname"
+license=('GPLv3')
+groups=()
+depends=('iproute2')
+makedepends=()
+checkdepends=()
+optdepends=()
+provides=()
+replaces=()
+backup=()
+options=()
+source=("$url/releases/download/$pkgver/$_deb_pkgname-$pkgver-$arch.deb")
+noextract=()
+
+build() {
+	rm control.tar.zst
+	tar xvf data.tar.zst
+}
+
+package() {
+	cp -fr usr/ ${pkgdir}
+}
