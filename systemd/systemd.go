@@ -67,7 +67,7 @@ func FindClamdProcess() ctypes.Prod {
 	})
 
 	if isRunning {
-		if cd, err := GetClamDetails(); err != nil {
+		if cd, err := GetClamDetails(); err == nil {
 			return ctypes.Prod{
 				Vendor:   "Cisco Systems, Inc.",
 				Name:     "ClamAV",
