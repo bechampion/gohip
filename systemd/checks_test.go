@@ -46,5 +46,5 @@ func fileErrorCheck(t *testing.T, when time.Time) error {
 
 	clamavDbFile := ClamavDbFile{path: nowFilePath}
 
-	return DbTooOld(clamavDbFile)
+	return DbAgeCheck(clamavDbFile)
 }

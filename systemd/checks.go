@@ -7,12 +7,9 @@ import (
 	"time"
 )
 
-var (
-	clamavDbFile ClamavDbFile
-)
+var clamavDbFile ClamavDbFile
 
 func init() {
-	//clamavDbFile = ClamavDbFile{path: "/etc/ssh"}
 	clamavDbFile = ClamavDbFile{path: "/var/lib/clamav/daily.cld"}
 }
 
@@ -20,11 +17,11 @@ type ClamavDbFile struct {
 	path string
 }
 
-func DbTooOldDefault() error {
-	return DbTooOld(clamavDbFile)
+func DefaultDbAgeCheck() error {
+	return DbAgeCheck(clamavDbFile)
 }
 
-func DbTooOld(clamavDbFile ClamavDbFile) error {
+func DbAgeCheck(clamavDbFile ClamavDbFile) error {
 	hoursInWeek := 24 * 7
 
 	fi, err := os.Stat(clamavDbFile.path)

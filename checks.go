@@ -6,9 +6,7 @@ import (
 )
 
 func RunPreflightChecks() error {
-	clamavError := systemd.DbTooOldDefault()
+	clamavError := systemd.DefaultDbAgeCheck()
 
-	err := errors.Join(clamavError, clamavError)
-
-	return err
+	return errors.Join(clamavError)
 }
