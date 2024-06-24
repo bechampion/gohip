@@ -3,8 +3,8 @@ package osdata
 import (
 	"encoding/json"
 	"fmt"
+	ctypes "github.com/bechampion/gohip/types"
 	"github.com/shirou/gopsutil/v3/host"
-	ctypes "gohip/types"
 	"os"
 	"os/exec"
 )

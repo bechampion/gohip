@@ -3,7 +3,7 @@ package systemd
 import (
 	"bytes"
 	"fmt"
-	ctypes "gohip/types"
+	ctypes "github.com/bechampion/gohip/types"
 	"log"
 	"os"
 	"os/exec"
@@ -67,7 +67,7 @@ func FindClamdProcess() ctypes.Prod {
 	})
 
 	if isRunning {
-		if cd, err := GetClamDetails(); err != nil {
+		if cd, err := GetClamDetails(); err == nil {
 			return ctypes.Prod{
 				Vendor:   "Cisco Systems, Inc.",
 				Name:     "ClamAV",
