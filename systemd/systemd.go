@@ -3,7 +3,7 @@ package systemd
 import (
 	"bytes"
 	"fmt"
-	ctypes "gohip/types"
+	ctypes "github.com/bechampion/gohip/types"
 	"log"
 	"os"
 	"os/exec"

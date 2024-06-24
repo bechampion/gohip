@@ -3,7 +3,7 @@ package others
 import (
 	"bufio"
 	"fmt"
-	ctypes "gohip/types"
+	ctypes "github.com/bechampion/gohip/types"
 	"os"
 	"os/exec"
 	"os/user"
