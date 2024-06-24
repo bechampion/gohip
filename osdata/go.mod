@@ -1,9 +1,9 @@
-module github.com/bechampion/gohip/osdata
+module gohip/osdata
 
 go 1.22.3
 
 require (
-	github.com/bechampion/gohip/types v0.0.0-20240615162649-e52f38b1aa94
+	gohip/types v0.0.0-00010101000000-000000000000
 	github.com/shirou/gopsutil/v3 v3.24.4
 )
 
@@ -17,3 +17,5 @@ require (
 	github.com/yusufpapurcu/wmi v1.2.4 // indirect
 	golang.org/x/sys v0.19.0 // indirect
 )
+
+replace gohip/types => ../types

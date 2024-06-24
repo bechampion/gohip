@@ -3,12 +3,23 @@ package systemd
 import (
 	"bytes"
 	"fmt"
-	ctypes "github.com/bechampion/gohip/types"
+	ctypes "gohip/types"
+	"log"
+	"os"
 	"os/exec"
 	"regexp"
+	"slices"
 	"strings"
 	"time"
 )
+
+var (
+	WarningLogger *log.Logger
+)
+
+func init() {
+	WarningLogger = log.New(os.Stderr, "[WARN] ", log.Ldate|log.Ltime|log.Lshortfile)
+}
 
 type ClamDetails struct {
 	Version string
@@ -43,18 +54,20 @@ func FindClamdProcess() ctypes.Prod {
 	var out bytes.Buffer
 	cmd.Stdout = &out
 
+	noClamAV := ctypes.Prod{}
+
 	if err := cmd.Run(); err != nil {
-		return ctypes.Prod{}
+		return noClamAV
 	}
 
 	lines := strings.Split(out.String(), "\n")
 
-	for _, line := range lines {
-		if strings.Contains(line, "clamd") {
-			cd, err := GetClamDetails()
-			if err != nil {
-				return ctypes.Prod{}
-			}
+	isRunning := slices.ContainsFunc(lines, func(process string) bool {
+		return strings.Contains(process, "clamd")
+	})
+
+	if isRunning {
+		if cd, err := GetClamDetails(); err != nil {
 			return ctypes.Prod{
 				Vendor:   "Cisco Systems, Inc.",
 				Name:     "ClamAV",
@@ -68,5 +81,7 @@ func FindClamdProcess() ctypes.Prod {
 			}
 		}
 	}
-	return ctypes.Prod{}
+
+	WarningLogger.Println("clamd process not found")
+	return noClamAV
 }

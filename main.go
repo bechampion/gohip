@@ -4,10 +4,10 @@ import (
 	"encoding/xml"
 	"flag"
 	"fmt"
-	osdata "github.com/bechampion/gohip/osdata"
-	others "github.com/bechampion/gohip/others"
-	systemd "github.com/bechampion/gohip/systemd"
-	ctypes "github.com/bechampion/gohip/types"
+	osdata "gohip/osdata"
+	others "gohip/others"
+	systemd "gohip/systemd"
+	ctypes "gohip/types"
 	"log"
 	"net/url"
 	"os"
@@ -29,7 +29,6 @@ func logCommandAndArgs() {
 
 func main() {
 	logCommandAndArgs()
-	systemd.FindClamdProcess()
 	cookie := flag.String("cookie", "", "")
 	_ = flag.String("client-os", "", "")
 	clientip := flag.String("client-ip", "", "")

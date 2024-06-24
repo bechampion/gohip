@@ -3,10 +3,10 @@ module github.com/bechampion/gohip
 go 1.22.3
 
 require (
-	github.com/bechampion/gohip/osdata v0.0.0-20240615162838-24fd4fe6ae1c
-	github.com/bechampion/gohip/others v0.0.0-20240615163101-e647f8629345
-	github.com/bechampion/gohip/systemd v0.0.0-20240615162649-e52f38b1aa94
-	github.com/bechampion/gohip/types v0.0.0-20240615162838-24fd4fe6ae1c
+	gohip/osdata v0.0.0-00010101000000-000000000000
+	gohip/others v0.0.0-00010101000000-000000000000
+	gohip/systemd v0.0.0-00010101000000-000000000000
+	gohip/types v0.0.0-00010101000000-000000000000
 )
 
 require (
@@ -20,3 +20,11 @@ require (
 	github.com/yusufpapurcu/wmi v1.2.4 // indirect
 	golang.org/x/sys v0.19.0 // indirect
 )
+
+replace gohip/types => ./types
+
+replace gohip/osdata => ./osdata
+
+replace gohip/others => ./others
+
+replace gohip/systemd => ./systemd
