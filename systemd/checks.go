@@ -80,7 +80,7 @@ func GetClamConfDetails() (ClamConfDetails, error) {
 
 	const layout = "Mon Jan 02 15:04:05 2006"
 	lines := strings.Split(out.String(), "\n")
-	re := regexp.MustCompile(`^daily.cld: version (.*), sigs: (.*), built on (.*)`)
+	re := regexp.MustCompile(`^daily.c[l|v]d: version (.*), sigs: (.*), built on (.*)`)
 
 	for i := range lines {
 		line := lines[i]
