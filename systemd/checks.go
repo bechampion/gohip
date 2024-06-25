@@ -75,7 +75,7 @@ func GetClamConfDetails() (ClamConfDetails, error) {
 	cmd.Stdout = &out
 	err := cmd.Run()
 	if err != nil {
-		return ClamConfDetails{}, errors.New(fmt.Sprintf("aaa"))
+		return ClamConfDetails{}, errors.New(fmt.Sprintf("%v", err))
 	}
 
 	const layout = "Mon Jan 02 15:04:05 2006"
@@ -95,5 +95,5 @@ func GetClamConfDetails() (ClamConfDetails, error) {
 		}
 	}
 
-	return ClamConfDetails{}, errors.New(fmt.Sprintf("bbb"))
+	return ClamConfDetails{}, errors.New(fmt.Sprintf("Could not determine timestamp for daily.cld in clamconf output"))
 }
