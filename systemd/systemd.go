@@ -49,6 +49,7 @@ func GetClamDetails() (ClamDetails, error) {
 	cd.Year = strings.Split(cleanout, " ")[5][:4]
 	return cd, nil
 }
+
 func FindClamdProcess() ctypes.Prod {
 	cmd := exec.Command("ps", "aux")
 	var out bytes.Buffer

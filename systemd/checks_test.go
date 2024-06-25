@@ -14,6 +14,28 @@ func TestFileIs7DaysOld(t *testing.T) {
 	}
 }
 
+func TestDbConfigIsAlmost7DaysOld(t *testing.T) {
+	weekAgo := time.Now().Add(-time.Hour*24*7 + time.Hour)
+	details := ClamConfDetails{version: "1.0", sigs: "2.0", DailyCld: weekAgo}
+
+	err := DbConfigAgeCheck(details)
+
+	if err != nil {
+		t.Errorf("DailyCld should have been recent enough: \n%v", err)
+	}
+}
+
+func TestDbConfigIsOver7DaysOld(t *testing.T) {
+	weekAgo := time.Now().Add(-time.Hour*24*7 - time.Hour)
+	details := ClamConfDetails{version: "1.0", sigs: "2.0", DailyCld: weekAgo}
+
+	err := DbConfigAgeCheck(details)
+
+	if err == nil {
+		t.Errorf("DailyCld should have been too old")
+	}
+}
+
 func TestFileIsAlmost7DaysOld(t *testing.T) {
 	clamavError := fileErrorCheck(t, time.Now().Add(-time.Hour*24*7+time.Hour))
 
@@ -46,5 +68,5 @@ func fileErrorCheck(t *testing.T, when time.Time) error {
 
 	clamavDbFile := ClamavDbFile{path: nowFilePath}
 
-	return DbAgeCheck(clamavDbFile)
+	return DbFileAgeCheck(clamavDbFile)
 }
