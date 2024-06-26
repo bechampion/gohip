@@ -14,8 +14,11 @@ push_tag:
 
 .PHONY: all delete_latest_tag recreate_tag push_tag
 
-build:
+build: test
 	go build -o gohip-$(GOOS)-$(GOARCH)
+
+test:
+	go test -v ./systemd ./others ./osdata ./types .
 
 install: build
 	mkdir -p $(DESTDIR)/usr/bin

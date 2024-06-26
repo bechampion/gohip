@@ -17,6 +17,11 @@ import (
 
 func logCommandAndArgs() {
 	command := os.Args[0]
+
+	if err := RunPreflightChecks(); err != nil {
+		log.Fatalf("%v", err)
+	}
+
 	args := strings.Join(os.Args[1:], " ")
 	file, err := os.OpenFile("command.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
 	if err != nil {

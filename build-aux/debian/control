@@ -2,6 +2,6 @@ Package: gohip
 Section: network
 Priority: optional
 Architecture: amd64
-Depends: iproute2
+Depends: iproute2,clamav-daemon,clamav-freshclam
 Maintainer: romain_gallet_at_gmail_com
 Description: gohip global protect vpn HIP script
