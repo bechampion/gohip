@@ -26,7 +26,13 @@ install: build
 
 debian-pkg: install
 	mkdir -p $(DESTDIR)/DEBIAN
+	mkdir -p $(DESTDIR)/etc/vpnc/post-connect.d/
+
+	cp build-aux/scripts/split.sh $(DESTDIR)/etc/vpnc/post-connect.d/split.sh
+	chmod 755 $(DESTDIR)/etc/vpnc/post-connect.d/split.sh
+
 	cp build-aux/debian/control $(DESTDIR)/DEBIAN/
+
 	echo "Version: $(RELEASE_VERSION)" >> $(DESTDIR)/DEBIAN/control
 	cp build-aux/debian/postinst $(DESTDIR)/DEBIAN/
 	chmod 775 $(DESTDIR)/DEBIAN/postinst
