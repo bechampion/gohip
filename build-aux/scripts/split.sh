@@ -5,7 +5,7 @@ set -e
 CONFIG_FILE=/etc/vpnc/splitvpn
 
 if [[ ! -f $CONFIG_FILE ]]; then
-    echo "$CONFIG_FILE does exist. Please create it with the following content:"
+    echo "$CONFIG_FILE does exist. Split tunneling will not be active. Please create it with the following content if you want to activate:"
 cat << EOF
 
 # beginning
@@ -17,7 +17,7 @@ You can determine those values with
   ip -json r get 1.1.1.1 | jq '.[]| "MAIN_DEV=\"\(.dev)\" \nGW=\"\(.gateway)\""' -r
 
 EOF
-    exit 1
+    exit 0
 fi
 
 . $CONFIG_FILE
