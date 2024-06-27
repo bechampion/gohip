@@ -15,7 +15,7 @@ provides=()
 replaces=()
 backup=()
 options=()
-source=("$url/releases/download/$pkgver/$_deb_pkgname-$pkgver-$arch.deb")
+source=("$url/releases/download/v$pkgver/$_deb_pkgname-$pkgver-$arch.deb")
 noextract=()
 
 build() {
