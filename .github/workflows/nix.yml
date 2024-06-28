@@ -19,5 +19,5 @@ jobs:
           nix run .#upgrade-nix-gohip
           git config --global user.name 'autobot'
           git config --global user.email 'gohip.nix@github.com'
-          git commit -am "Automated nix hash update"
+          git commit -am "[skip ci] Automated nix hash update"
           git push
