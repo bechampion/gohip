@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# THIS SCRIPT IS PART OF gohip. DO NOT MODIFY IT UNLESS YOU KNOW WHAT YOU ARE DOING.
+
 set -e
 
 CONFIG_FILE=/etc/vpnc/splitvpn
@@ -22,11 +24,11 @@ fi
 
 . $CONFIG_FILE
 
-DISNEY_NET="10/8"
+VPN_NET="10/8"
 VPN_DEV="tun0"
 
 ip route del default
 ip route add default via $GW dev $MAIN_DEV
-ip route add $DISNEY_NET dev $VPN_DEV
+ip route add $VPN_NET dev $VPN_DEV
 
 exit 0
