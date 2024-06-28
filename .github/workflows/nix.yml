@@ -17,7 +17,7 @@ jobs:
       - run: |
           export WORKSPACE="${PWD}"
           nix run .#upgrade-nix-gohip
-          git config --global user.name 'jgarcia'
-          git config --global user.email 'garciaj.uk@gmail.com'
+          git config --global user.name 'autobot'
+          git config --global user.email 'gohip.nix@github.com'
           git commit -am "Automated nix hash update"
           git push
