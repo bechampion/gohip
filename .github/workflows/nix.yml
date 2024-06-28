@@ -1,0 +1,23 @@
+name: Update nix config
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  nix:
+      steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - uses: cachix/install-nix-action@v27
+        with:
+                github_access_token: ${{ secrets.GITHUB_TOKEN }}
+      - run: |
+          export WORKSPACE="${PWD}"
+          nix run .#upgrade-nix-gohip
+          git config --global user.name 'jgarcia'
+          git config --global user.email 'garciaj.uk@gmail.com'
+          git commit -am "Automated nix hash update"
+          git push
