@@ -22,10 +22,10 @@ EOF
     exit 0
 fi
 
-. $CONFIG_FILE
-
 VPN_NET="10/8"
 VPN_DEV="tun0"
+
+. $CONFIG_FILE
 
 ip route del default
 ip route add default via $GW dev $MAIN_DEV
