@@ -11,12 +11,13 @@
           pkgs = import nixpkgs {
             inherit system overlays;
           };
+          gohip-vendor-hash = import ./gohip.vendor.hash.nix;
           gohip-package = (pkgs.buildGoModule {
             name = "gohip";
             pname = "gohip";
 
             src = ./.;
-            vendorHash = "sha256-jZcR+OMiGplA5yVMpQT4qNKH+tyFp7PXQVoG+oghBLs=";
+            vendorHash = gohip-vendor-hash pkgs;
             proxyVendor = true;
             excludedPackages = ["osdata" "others" "systemd" "types"];
           });
