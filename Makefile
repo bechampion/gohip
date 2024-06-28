@@ -1,3 +1,5 @@
+CGO_ENABLED=0
+export CGO_ENABLED
 all: delete_latest_tag recreate_tag push_tag
 
 delete_latest_tag:
