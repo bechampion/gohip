@@ -1,5 +1,7 @@
-pkgs :
+pkgs : custom-packages :
 
-pkgs.mkShell {
-  buildInputs = [ pkgs.go ];
-}
+let
+in
+  pkgs.mkShell {
+    buildInputs = [ pkgs.go custom-packages.upgrade-nix-gohip ];
+  }
