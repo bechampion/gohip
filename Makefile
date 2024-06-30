@@ -1,5 +1,3 @@
-CGO_ENABLED=0
-export CGO_ENABLED
 all: delete_latest_tag recreate_tag push_tag
 
 delete_latest_tag:
@@ -16,15 +14,21 @@ push_tag:
 
 .PHONY: all delete_latest_tag recreate_tag push_tag
 
-build: test
-	go build -o gohip-$(GOOS)-$(GOARCH)
-
 test:
 	go test -v ./systemd ./others ./osdata ./types .
+
+build: build-dynamic build-static
+
+build-dynamic:
+	go build -o gohip-$(GOOS)-$(GOARCH)
+
+build-static:
+	CGO_ENABLED=0 go build -o gohip-static-$(GOOS)-$(GOARCH)
 
 install: build
 	mkdir -p $(DESTDIR)/usr/bin
 	cp gohip-$(GOOS)-$(GOARCH) $(DESTDIR)/usr/bin/gohip
+	cp gohip-static-$(GOOS)-$(GOARCH) $(DESTDIR)/usr/bin/gohip-static
 
 debian-pkg: install
 	mkdir -p $(DESTDIR)/DEBIAN
