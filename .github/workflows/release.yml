@@ -45,7 +45,7 @@ jobs:
           GOOS=${{ matrix.goos }} GOARCH=${{ matrix.goarch }} RELEASE_VERSION=$RELEASE_VERSION DESTDIR=$DESTDIR make debian-pkg
 
       - name: Upload Debian release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           files: |
@@ -71,7 +71,7 @@ jobs:
           md5sum gohip-$RELEASE_VERSION-1.x86_64.rpm >> gohip-$RELEASE_VERSION-1.x86_64.rpm
 
       - name: Upload CentOS 8 release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           files: |
@@ -111,7 +111,7 @@ jobs:
           md5sum build-aux/arch/gohip-bin/gohip-bin-$RELEASE_VERSION-1-x86_64.pkg.tar.zst >> build-aux/arch/gohip-bin/gohip-bin-$RELEASE_VERSION-1-x86_64.pkg.tar.zst.md5sum
 
       - name: Upload Arch Linux release
-        uses: softprops/action-gh-release@v1
+        uses: softprops/action-gh-release@v2
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           files: |
