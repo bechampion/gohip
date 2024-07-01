@@ -22,13 +22,18 @@ EOF
     exit 0
 fi
 
-VPN_NET="10/8"
+VPN_NETS=( 10/8 )
 VPN_DEV="tun0"
 
 . $CONFIG_FILE
 
 ip route del default
 ip route add default via $GW dev $MAIN_DEV
-ip route add $VPN_NET dev $VPN_DEV
+
+for subnet in "${VPN_NETS[@]}"
+do
+  ip route add $subnet dev $VPN_DEV
+done
+
 
 exit 0
