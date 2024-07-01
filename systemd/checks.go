@@ -69,6 +69,16 @@ type ClamConfDetails struct {
 	DailyCld time.Time
 }
 
+func parseDate(src string) (time.Time, error) {
+	const layout = "Mon Jan 2 15:04:05 2006"
+	return time.Parse(layout, src)
+}
+
+func parseDailyCvdLine(line string) []string {
+	re := regexp.MustCompile(`^daily.c[l|v]d: version (.*), sigs: (.*), built on (.*)`)
+	return re.FindStringSubmatch(line)
+}
+
 func GetClamConfDetails() (ClamConfDetails, error) {
 	cmd := exec.Command("clamconf")
 	var out bytes.Buffer
@@ -78,17 +88,15 @@ func GetClamConfDetails() (ClamConfDetails, error) {
 		return ClamConfDetails{}, errors.New(fmt.Sprintf("%v", err))
 	}
 
-	const layout = "Mon Jan 02 15:04:05 2006"
 	lines := strings.Split(out.String(), "\n")
-	re := regexp.MustCompile(`^daily.c[l|v]d: version (.*), sigs: (.*), built on (.*)`)
 
 	for i := range lines {
 		line := lines[i]
-		finds := re.FindStringSubmatch(line)
+		finds := parseDailyCvdLine(line)
 
 		if len(finds) > 0 {
 			cd := ClamConfDetails{}
-			cd.DailyCld, _ = time.Parse(layout, finds[3])
+			cd.DailyCld, _ = parseDate(finds[3])
 			cd.version = finds[1]
 			cd.sigs = finds[2]
 			return cd, nil
