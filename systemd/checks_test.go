@@ -96,7 +96,7 @@ func TestDatesParsing(t *testing.T) {
 }
 
 func parseDailyLine(t *testing.T, line string) {
-	var results = parseDailyCvsLine(line)
+	var results = parseDailyCvdLine(line)
 	if len(results) != 4 {
 		t.Errorf("should have 4 results: %v", results)
 	}

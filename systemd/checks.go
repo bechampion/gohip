@@ -74,7 +74,7 @@ func parseDate(src string) (time.Time, error) {
 	return time.Parse(layout, src)
 }
 
-func parseDailyCvsLine(line string) []string {
+func parseDailyCvdLine(line string) []string {
 	re := regexp.MustCompile(`^daily.c[l|v]d: version (.*), sigs: (.*), built on (.*)`)
 	return re.FindStringSubmatch(line)
 }
@@ -92,7 +92,7 @@ func GetClamConfDetails() (ClamConfDetails, error) {
 
 	for i := range lines {
 		line := lines[i]
-		finds := parseDailyCvsLine(line)
+		finds := parseDailyCvdLine(line)
 
 		if len(finds) > 0 {
 			cd := ClamConfDetails{}
