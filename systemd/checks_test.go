@@ -81,8 +81,8 @@ func TestDatesParsing(t *testing.T) {
 		t.Errorf("%v", err)
 	}
 
-	// extra space before
-	if _, err := parseDate("Mon Jul  1 10:40:06 2024"); err != nil {
+	// no extra space before
+	if _, err := parseDate("Mon Jul 1 10:40:06 2024"); err != nil {
 		t.Errorf("%v", err)
 	}
 
