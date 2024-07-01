@@ -7,7 +7,7 @@ set -e
 CONFIG_FILE=/etc/vpnc/splitvpn
 
 if [[ ! -f $CONFIG_FILE ]]; then
-    echo "$CONFIG_FILE does not exist. Split tunneling will not be active. Please create it with the following content if you want to activate:"
+    echo "[INFO] $CONFIG_FILE does not exist. Custom split tunneling won't be active. Please create it with the following content if you want to activate:"
 cat << EOF
 
 # beginning
