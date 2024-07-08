@@ -4,6 +4,8 @@
 
 set -e
 
+if [ -z "$BASH" ]; then echo "Please run this script $0 with bash"; exit; fi
+
 CONFIG_FILE=/etc/vpnc/splitvpn
 RUNNING_FROM_OPENCONNECT=false
 
