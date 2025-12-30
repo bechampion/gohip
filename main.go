@@ -36,6 +36,8 @@ func main() {
 	logCommandAndArgs()
 	cookie := flag.String("cookie", "", "")
 	_ = flag.String("client-os", "", "")
+	_ = flag.String("client-version", "", "")
+	_ = flag.String("os-version", "", "")
 	clientip := flag.String("client-ip", "", "")
 	md5 := flag.String("md5", "", "")
 	flag.Parse()
