@@ -2,7 +2,6 @@ package systemd
 
 import (
 	"bytes"
-	"errors"
 	"fmt"
 	"os"
 	"os/exec"
@@ -45,7 +44,7 @@ func DbFileAgeCheck(clamavDbFile ClamavDbFile) error {
 	hoursSince := int(time.Since(mtime).Hours())
 
 	if hoursSince > hoursInWeek {
-		return errors.New(fmt.Sprintf("virus definition is too old: %s is more than %d hours old (> 7 days)", clamavDbFile.path, hoursSince))
+		return fmt.Errorf("virus definition is too old: %s is more than %d hours old (> 7 days)", clamavDbFile.path, hoursSince)
 	} else {
 		return nil
 	}
@@ -57,7 +56,7 @@ func DbConfigAgeCheck(details ClamConfDetails) error {
 	tooOld := details.DailyCld.Before(weekAgo)
 
 	if tooOld {
-		return errors.New(fmt.Sprintf("virus definition is more than 7 days old: %s", details.DailyCld.String()))
+		return fmt.Errorf("virus definition is more than 7 days old: %s", details.DailyCld.String())
 	}
 
 	return nil
@@ -75,7 +74,7 @@ func parseDate(src string) (time.Time, error) {
 }
 
 func parseDailyCvdLine(line string) []string {
-	re := regexp.MustCompile(`^daily.c[l|v]d: version (.*), sigs: (.*), built on (.*)`)
+	re := regexp.MustCompile(`^daily.c[lv]d: version (.*), sigs: (.*), built on (.*)`)
 	return re.FindStringSubmatch(line)
 }
 
@@ -85,7 +84,7 @@ func GetClamConfDetails() (ClamConfDetails, error) {
 	cmd.Stdout = &out
 	err := cmd.Run()
 	if err != nil {
-		return ClamConfDetails{}, errors.New(fmt.Sprintf("%v", err))
+		return ClamConfDetails{}, fmt.Errorf("failed to run clamconf: %w", err)
 	}
 
 	lines := strings.Split(out.String(), "\n")
@@ -96,12 +95,16 @@ func GetClamConfDetails() (ClamConfDetails, error) {
 
 		if len(finds) > 0 {
 			cd := ClamConfDetails{}
-			cd.DailyCld, _ = parseDate(finds[3])
+			parsedDate, parseErr := parseDate(finds[3])
+			if parseErr != nil {
+				return ClamConfDetails{}, fmt.Errorf("failed to parse date %q from clamconf output: %w", finds[3], parseErr)
+			}
+			cd.DailyCld = parsedDate
 			cd.version = finds[1]
 			cd.sigs = finds[2]
 			return cd, nil
 		}
 	}
 
-	return ClamConfDetails{}, errors.New(fmt.Sprintf("Could not determine timestamp for daily.cld in clamconf output"))
+	return ClamConfDetails{}, fmt.Errorf("could not determine timestamp for daily.cld in clamconf output")
 }

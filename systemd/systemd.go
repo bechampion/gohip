@@ -37,16 +37,37 @@ func GetClamDetails() (ClamDetails, error) {
 	if err != nil {
 		return ClamDetails{}, err
 	}
-	//This is gnarly
+
+	// Example output: "ClamAV 0.103.6/26590/Mon Jul  1 10:40:06 2024"
+	// Normalize multiple spaces to single space for consistent parsing
 	re := regexp.MustCompile(`\s{2,}`)
-	cleanout := re.ReplaceAllString(out.String(), " ")
-	cd := ClamDetails{}
-	cd.Version = strings.Split(strings.Split(cleanout, " ")[1], "/")[0]
-	cd.Defver = strings.Split(strings.Split(cleanout, " ")[1], "/")[1]
-	m, _ := time.Parse("Jan", strings.Split(cleanout, " ")[2])
-	cd.Month = fmt.Sprintf("%d", int(m.Month()))
-	cd.Day = strings.Split(cleanout, " ")[3]
-	cd.Year = strings.Split(cleanout, " ")[5][:4]
+	cleanout := strings.TrimSpace(re.ReplaceAllString(out.String(), " "))
+
+	// Parse with regex instead of fragile index-based splits
+	// Matches: "ClamAV <version>/<defver>/<date>"
+	parseRe := regexp.MustCompile(`ClamAV\s+(\S+)/(\d+)/(.+)`)
+	matches := parseRe.FindStringSubmatch(cleanout)
+	if len(matches) < 4 {
+		return ClamDetails{}, fmt.Errorf("unexpected clamd -V output format: %q", cleanout)
+	}
+
+	version := matches[1]
+	defver := matches[2]
+	dateStr := strings.TrimSpace(matches[3])
+
+	// Parse the date portion (e.g. "Mon Jul 1 10:40:06 2024")
+	t, err := time.Parse("Mon Jan 2 15:04:05 2006", dateStr)
+	if err != nil {
+		return ClamDetails{}, fmt.Errorf("failed to parse date from clamd output %q: %w", dateStr, err)
+	}
+
+	cd := ClamDetails{
+		Version: version,
+		Defver:  defver,
+		Month:   fmt.Sprintf("%d", int(t.Month())),
+		Day:     fmt.Sprintf("%d", t.Day()),
+		Year:    fmt.Sprintf("%d", t.Year()),
+	}
 	return cd, nil
 }
 

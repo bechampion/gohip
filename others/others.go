@@ -16,7 +16,10 @@ func Others() {
 
 func GetPackageManager() []ctypes.ListEntry {
 	var listpkgs []ctypes.ListEntry
-	file, _ := os.Open("/etc/os-release")
+	file, err := os.Open("/etc/os-release")
+	if err != nil {
+		return []ctypes.ListEntry{}
+	}
 	defer file.Close()
 
 	scanner := bufio.NewScanner(file)
@@ -31,15 +34,15 @@ func GetPackageManager() []ctypes.ListEntry {
 	}
 
 	packageManagers := map[string]string{
-		"Debian":   "apt",
-		"Ubuntu":   "apt",
-		"Centos":   "yum",
-		"Fedora":   "dnf",
-		"RedHat":   "yum",
-		"Arch":     "pacman",
-		"Manjaro":  "pacman",
-		"Opensuse": "zypper",
-		"Suse":     "zypper",
+		"debian":   "apt",
+		"ubuntu":   "apt",
+		"centos":   "yum",
+		"fedora":   "dnf",
+		"rhel":     "yum",
+		"arch":     "pacman",
+		"manjaro":  "pacman",
+		"opensuse": "zypper",
+		"suse":     "zypper",
 	}
 
 	if pkgManager, found := packageManagers[distro]; found {

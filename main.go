@@ -43,7 +43,7 @@ func main() {
 	flag.Parse()
 	values, err := url.ParseQuery(*cookie)
 	if err != nil {
-		panic(err)
+		log.Fatalf("failed to parse cookie: %v", err)
 	}
 	user := values.Get("user")
 	domain := values.Get("domain")
@@ -51,15 +51,15 @@ func main() {
 
 	hostname, err := osdata.GetHostname()
 	if err != nil {
-		panic(err)
+		log.Fatalf("failed to get hostname: %v", err)
 	}
 	osname, err := osdata.GetOS()
 	if err != nil {
-		panic(err)
+		log.Fatalf("failed to get OS name: %v", err)
 	}
 	interfaces, err := osdata.GetInterfaces()
 	if err != nil {
-		panic(err)
+		log.Fatalf("failed to get network interfaces: %v", err)
 	}
 	hipReport := ctypes.HipReport{
 		Name:         "hip-report",
