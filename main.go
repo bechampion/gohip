@@ -38,6 +38,7 @@ func main() {
 	_ = flag.String("client-os", "", "")
 	_ = flag.String("client-version", "", "")
 	_ = flag.String("os-version", "", "")
+	_ = flag.String("host-id", "", "")
 	clientip := flag.String("client-ip", "", "")
 	md5 := flag.String("md5", "", "")
 	flag.Parse()
