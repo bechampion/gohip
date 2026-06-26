@@ -15,6 +15,8 @@ import (
 	"time"
 )
 
+var Version = "dev"
+
 func logCommandAndArgs() {
 	command := os.Args[0]
 
@@ -33,7 +35,7 @@ func logCommandAndArgs() {
 }
 
 func main() {
-	logCommandAndArgs()
+	versionFlag := flag.Bool("version", false, "Print version and exit")
 	cookie := flag.String("cookie", "", "")
 	_ = flag.String("client-os", "", "")
 	_ = flag.String("client-version", "", "")
@@ -42,6 +44,13 @@ func main() {
 	clientip := flag.String("client-ip", "", "")
 	md5 := flag.String("md5", "", "")
 	flag.Parse()
+
+	if *versionFlag {
+		fmt.Println(Version)
+		os.Exit(0)
+	}
+
+	logCommandAndArgs()
 	values, err := url.ParseQuery(*cookie)
 	if err != nil {
 		panic(err)

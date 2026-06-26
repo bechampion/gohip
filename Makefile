@@ -19,11 +19,14 @@ test:
 
 build: build-dynamic build-static
 
+VERSION ?= $(shell git describe --tags --always --dirty 2>/dev/null || echo dev)
+LDFLAGS = -ldflags "-X main.Version=$(VERSION)"
+
 build-dynamic:
-	go build -o gohip-$(GOOS)-$(GOARCH)
+	go build $(LDFLAGS) -o gohip-$(GOOS)-$(GOARCH)
 
 build-static:
-	CGO_ENABLED=0 go build -o gohip-static-$(GOOS)-$(GOARCH)
+	CGO_ENABLED=0 go build $(LDFLAGS) -o gohip-static-$(GOOS)-$(GOARCH)
 
 install: build
 	mkdir -p $(DESTDIR)/usr/bin
