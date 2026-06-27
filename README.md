@@ -3,6 +3,25 @@ gohip
 
 The HIP ( `Host Integrity Protection`) mechanism is a security scanner for the Palo Alto Networks GlobalProtect VPNs, in the same vein as Cisco's CSD and Juniper's Host Checker ([source](https://www.infradead.org/openconnect/hip.html)).
 
+# Flags
+
+`gohip` accepts the following flags. Most are passed automatically by `gpclient` as part of the CSD wrapper protocol — you typically don't need to set them manually.
+
+| Flag | Description |
+|---|---|
+| `-version` | Print the current version and exit |
+| `-cookie` | URL-encoded cookie string provided by `gpclient`, contains `user`, `domain`, and `computer` fields |
+| `-client-ip` | Client IP address as reported by the VPN gateway |
+| `-md5` | MD5 value passed by `gpclient` and included verbatim in the HIP report |
+| `-client-os` | OS identifier passed by `gpclient` (accepted but unused) |
+| `-client-version` | Client version string passed by `gpclient` (accepted but unused) |
+| `-os-version` | OS version string passed by `gpclient` (accepted but unused) |
+| `-host-id` | Host identifier passed by `gpclient` (accepted but unused — hostname is used instead) |
+
+### Check the installed version
+
+    gohip -version
+
 # Installation
 
 Download and install `gohip` from the [releases page](https://github.com/bechampion/gohip/releases), ie:
@@ -40,3 +59,15 @@ To set your default browser you can do
 
 #### Notes
 Using firefox/chrome from snaps will not work: the `gpclient` drops a file in `/tmp` that needs to be accessible from the browser.
+
+# Releases
+
+Every push (or merged PR) to `main` automatically cuts a new patch release via GitHub Actions:
+
+1. Tests run on the `main` branch
+2. On success, the patch version is bumped and a new `v*.*.*` tag is pushed
+3. The release workflow builds binaries and packages (`.deb`, `.rpm`, Arch `.pkg.tar.zst`) and uploads them to the [releases page](https://github.com/bechampion/gohip/releases)
+
+To bump major or minor versions manually:
+
+    git tag v2.0.0 && git push origin v2.0.0
