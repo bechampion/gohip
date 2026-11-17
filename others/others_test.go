@@ -41,12 +41,17 @@ func TestIsDmCrypt(t *testing.T) {
 		"dm-0": {uuid: "CRYPT-LUKS2-abc-luks-abc", slaves: []string{"nvme0n1p3"}},
 		"dm-1": {uuid: "LVM-xyz", slaves: []string{"dm-0"}},
 		"dm-2": {uuid: "LVM-plain", slaves: []string{"sda1"}},
+		"dm-3": {uuid: "LVM-mixed", slaves: []string{"dm-0", "sda1"}},
+		"dm-4": {uuid: "CRYPT-LUKS2-def-luks-def", slaves: []string{"nvme0n1p4"}},
+		"dm-5": {uuid: "LVM-spanned", slaves: []string{"dm-0", "dm-4"}},
 	})
 
 	for name, want := range map[string]bool{
 		"dm-0": true,  // LUKS mapping itself
 		"dm-1": true,  // LVM on top of LUKS
 		"dm-2": false, // LVM on a plain partition
+		"dm-3": false, // LVM spanning a LUKS and a plain device
+		"dm-5": true,  // LVM spanning two LUKS devices
 		"sda1": false, // plain partition
 		"nope": false, // unknown device
 	} {

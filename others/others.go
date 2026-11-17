@@ -118,7 +118,7 @@ func GetEncryptedPartitions() []ctypes.DriveEntry {
 
 var sysBlock = "/sys/class/block/"
 
-// encState reports "encrypted" when dev is, or sits on, a dm-crypt mapping (LUKS, also under LVM).
+// encState reports "encrypted" when dev is a dm-crypt mapping, or every device under it is (e.g. LVM on LUKS).
 func encState(dev string) string {
 	real, err := filepath.EvalSymlinks(dev)
 	if err != nil {
@@ -139,15 +139,15 @@ func isDmCrypt(name string, depth int) bool {
 		return true
 	}
 	slaves, err := os.ReadDir(sysBlock + name + "/slaves")
-	if err != nil {
+	if err != nil || len(slaves) == 0 {
 		return false
 	}
 	for _, s := range slaves {
-		if isDmCrypt(s.Name(), depth+1) {
-			return true
+		if !isDmCrypt(s.Name(), depth+1) {
+			return false
 		}
 	}
-	return false
+	return true
 }
 
 func GetUserHomeDir() (string, error) {
