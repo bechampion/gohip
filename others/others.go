@@ -7,6 +7,7 @@ import (
 	"os"
 	"os/exec"
 	"os/user"
+	"path/filepath"
 	"strings"
 )
 
@@ -103,8 +104,7 @@ func GetEncryptedPartitions() []ctypes.DriveEntry {
 		if mountPoint == "/" {
 			drives = append(drives, ctypes.DriveEntry{
 				DriveName: fields[0],
-				//This is hardcoded ,  we need to fix
-				EncState: "unencrypted",
+				EncState:  encState(fields[0]),
 			})
 		}
 	}
@@ -115,6 +115,41 @@ func GetEncryptedPartitions() []ctypes.DriveEntry {
 	return drives
 
 }
+
+var sysBlock = "/sys/class/block/"
+
+// encState reports "encrypted" when dev is a dm-crypt mapping, or every device under it is (e.g. LVM on LUKS).
+func encState(dev string) string {
+	real, err := filepath.EvalSymlinks(dev)
+	if err != nil {
+		return "unencrypted"
+	}
+	if isDmCrypt(filepath.Base(real), 0) {
+		return "encrypted"
+	}
+	return "unencrypted"
+}
+
+func isDmCrypt(name string, depth int) bool {
+	if depth > 8 {
+		return false
+	}
+	if uuid, err := os.ReadFile(sysBlock + name + "/dm/uuid"); err == nil &&
+		strings.HasPrefix(string(uuid), "CRYPT-") {
+		return true
+	}
+	slaves, err := os.ReadDir(sysBlock + name + "/slaves")
+	if err != nil || len(slaves) == 0 {
+		return false
+	}
+	for _, s := range slaves {
+		if !isDmCrypt(s.Name(), depth+1) {
+			return false
+		}
+	}
+	return true
+}
+
 func GetUserHomeDir() (string, error) {
 	currentUser, err := user.Current()
 	if err != nil {
